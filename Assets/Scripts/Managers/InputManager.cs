@@ -7,7 +7,9 @@ public class InputManager : MonoSingleton<InputManager>
     private GameInput m_GameInput;
 
     public event Action OnActionPressed;
+    public event Action OnJumpPressed;
 
+    [Header("DEBUG")]
     [SerializeField] private Vector2 m_MoveVector;
     [SerializeField] private Vector2 m_Look;
     
@@ -22,7 +24,6 @@ public class InputManager : MonoSingleton<InputManager>
     private void Start()
     {
         m_MoveVector = Vector2.zero;
-        OnActionPressed += () => Debug.Log("OnActionPressed");
     }
 
     // Update is called once per frame
@@ -38,11 +39,19 @@ public class InputManager : MonoSingleton<InputManager>
         m_GameInput.Game.Enable();
         
         m_GameInput.Game.Action.performed += HandleActionPerformed;
+        m_GameInput.Game.Jump.performed += HandleJumpPerformed;
     }
 
     private void HandleActionPerformed(InputAction.CallbackContext obj)
     {
+        Debug.Log("Action Pressed");
         OnActionPressed?.Invoke();
+    }
+
+    private void HandleJumpPerformed(InputAction.CallbackContext obj)
+    {
+        Debug.Log("Jump Pressed");
+        OnJumpPressed?.Invoke();
     }
     
     public Vector3 GetMovementVectorNormalized()
@@ -51,15 +60,10 @@ public class InputManager : MonoSingleton<InputManager>
         return new Vector3(inputVector.x, 0, inputVector.y);
     }
 
-    // public float GetRotationNormalized()
-    // {
-    //     return m_GameInput.Game.Rotation.ReadValue<float>();
-    // }
-    //
-    // public float GetElevationNormalized()
-    // {
-    //     return m_GameInput.Game.Elevation.ReadValue<float>();
-    // }
+    public Vector2 GetLookNormalized()
+    {
+        return m_GameInput.Game.Look.ReadValue<Vector2>();
+    }
 
     public void TogglePlayerControls(bool toggle)
     {
