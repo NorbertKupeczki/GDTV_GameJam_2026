@@ -4,12 +4,15 @@ using UnityEngine;
 public class PlayerInteractions : MonoBehaviour
 {
     [SerializeField] private CinemachineCamera m_Camera;
-
+    [Header("Sphere cast")]
     [SerializeField] private float m_SphereRadius = 0.25f;
     [SerializeField] private float m_MaxInteractionDistance = 1.0f;
     [SerializeField] private LayerMask m_InteractableLayer;
-    
-    private ICollectable m_TargetCollectable;
+
+    [Header("Item carried")]
+    [SerializeField] private Transform m_HeldItemTransform;
+    private Collectable m_TargetCollectable;
+    [SerializeField] private Collectable m_HeldItem;
 
     private void Start()
     {
@@ -43,7 +46,7 @@ public class PlayerInteractions : MonoBehaviour
             m_MaxInteractionDistance,
             m_InteractableLayer);
 
-        if (!raycastHit.collider || !raycastHit.collider.TryGetComponent(out ICollectable collectable))
+        if (!raycastHit.collider || !raycastHit.collider.TryGetComponent(out Collectable collectable))
         {
             //Debug.Log("No interactable found");
             m_TargetCollectable = null;
@@ -56,11 +59,20 @@ public class PlayerInteractions : MonoBehaviour
     
     private void HandleAction()
     {
-        
+        Debug.Log("Handle Action || Yet Unimplemented...");
     }
 
     private void HandlePickDrop()
     {
-        m_TargetCollectable?.Collect();
+        if (m_HeldItem)
+        {
+            m_HeldItem.Drop();
+            m_HeldItem = null;
+            return;
+        }
+        
+        m_HeldItem = m_TargetCollectable;
+        m_TargetCollectable?.Collect(m_HeldItemTransform);
+        m_TargetCollectable = null;
     }
 }

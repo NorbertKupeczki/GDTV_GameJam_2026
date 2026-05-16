@@ -2,5 +2,6 @@ using UnityEngine;
 
 public interface ICollectable
 {
-    public void Collect();
+    public GameEnums.CollectableTypes CollectableType { get; }
+    public void Collect(Transform parent);
 }
