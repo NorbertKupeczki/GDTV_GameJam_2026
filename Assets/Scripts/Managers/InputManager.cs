@@ -4,10 +4,24 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoSingleton<InputManager>
 {
+    public enum InputMaps
+    {
+        UI = 0,
+        Game
+    }
+    
     private GameInput m_GameInput;
+    private InputMaps m_ActiveInputMap = InputMaps.Game;
 
+    // UI Input Events
+    public event Action<Vector2> OnUiNavigatePressed;
+    public event Action OnSubmitPressed;
+    public event Action OnCancelPressed;
+    
+    // Game Input Events
     public event Action OnActionPressed;
     public event Action OnJumpPressed;
+    public event Action OnPickDropPressed;
 
     [Header("DEBUG")]
     [SerializeField] private Vector2 m_MoveVector;
@@ -36,12 +50,53 @@ public class InputManager : MonoSingleton<InputManager>
     private void InitialiseInputManager()
     {
         m_GameInput = new GameInput();
+        
+        m_GameInput.UI.Disable();
         m_GameInput.Game.Enable();
         
+        // Connecting UI Input action mapping to handlers
+        m_GameInput.UI.Navigate.performed += HandleNavigatePerformed;
+        m_GameInput.UI.Submit.performed += HandleSubmitPerformed;
+        m_GameInput.UI.Cancel.performed += HandleCancelPerformed;
+        
+        // Connecting Game Input action mapping to handlers
         m_GameInput.Game.Action.performed += HandleActionPerformed;
         m_GameInput.Game.Jump.performed += HandleJumpPerformed;
+        m_GameInput.Game.PickDrop.performed += HandlePickDropPerformed;
     }
 
+    private void OnDestroy()
+    {
+        // Disconnecting UI Input action mapping to handlers
+        m_GameInput.UI.Navigate.performed -= HandleNavigatePerformed;
+        m_GameInput.UI.Submit.performed -= HandleSubmitPerformed;
+        m_GameInput.UI.Cancel.performed -= HandleCancelPerformed;
+        
+        // Disconnecting Game Input action mapping to handlers
+        m_GameInput.Game.Action.performed -= HandleActionPerformed;
+        m_GameInput.Game.Jump.performed -= HandleJumpPerformed;
+        m_GameInput.Game.PickDrop.performed -= HandlePickDropPerformed;
+    }
+
+#region >>>>> UI INPUT MAP HANDLERS <<<<<
+
+    private void HandleNavigatePerformed(InputAction.CallbackContext obj)
+    {
+        OnUiNavigatePressed?.Invoke(m_GameInput.UI.Navigate.ReadValue<Vector2>());
+    }
+
+    private void HandleSubmitPerformed(InputAction.CallbackContext obj)
+    {
+        OnSubmitPressed?.Invoke();
+    }
+
+    private void HandleCancelPerformed(InputAction.CallbackContext obj)
+    {
+        OnCancelPressed?.Invoke();
+    }
+#endregion
+    
+#region >>>>> GAME INPUT MAP HANDLERS <<<<<
     private void HandleActionPerformed(InputAction.CallbackContext obj)
     {
         Debug.Log("Action Pressed");
@@ -53,6 +108,13 @@ public class InputManager : MonoSingleton<InputManager>
         Debug.Log("Jump Pressed");
         OnJumpPressed?.Invoke();
     }
+
+    private void HandlePickDropPerformed(InputAction.CallbackContext obj)
+    {
+        Debug.Log("Pick/Drop Pressed");
+        OnPickDropPressed?.Invoke();
+    }
+#endregion
     
     public Vector3 GetMovementVectorNormalized()
     {
@@ -67,6 +129,8 @@ public class InputManager : MonoSingleton<InputManager>
 
     public void TogglePlayerControls(bool toggle)
     {
+        if (m_GameInput.Game.enabled == toggle) { return; }
+        
         if (toggle)
         {
             m_GameInput.Game.Enable();
@@ -74,6 +138,24 @@ public class InputManager : MonoSingleton<InputManager>
         else
         {
             m_GameInput.Game.Disable();
+        }
+    }
+    
+    public void SwitchToInputMap(InputMaps inputMap)
+    {
+        if (inputMap == m_ActiveInputMap) { return; }
+        
+        m_ActiveInputMap = inputMap;
+
+        if (m_ActiveInputMap == InputMaps.Game)
+        {
+            m_GameInput.Game.Enable();
+            m_GameInput.UI.Disable();
+        }
+        else
+        {
+            m_GameInput.Game.Disable();
+            m_GameInput.UI.Enable();
         }
     }
 }

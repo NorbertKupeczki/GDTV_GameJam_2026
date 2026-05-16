@@ -109,6 +109,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""96b15b1a-e547-492a-8ffc-9d5dcfea3208"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -243,6 +252,28 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72d06fd4-7346-4dd6-b6e5-65fad38c24f2"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""725bd308-0a57-489b-a738-753a6c39e2d9"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -281,6 +312,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""ec84599e-cded-48d1-8672-f77ed67b682d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PickDrop"",
+                    ""type"": ""Button"",
+                    ""id"": ""824f1078-8821-4f88-9379-1d0dd25227db"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -419,6 +459,28 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec593abe-ecd6-4f6f-b104-bf5c1fb7b949"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickDrop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bedcfed7-4d04-4576-bc22-335b88d3ad58"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickDrop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -429,12 +491,14 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
+        m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
         // Game
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
         m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
         m_Game_Look = m_Game.FindAction("Look", throwIfNotFound: true);
         m_Game_Action = m_Game.FindAction("Action", throwIfNotFound: true);
         m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
+        m_Game_PickDrop = m_Game.FindAction("PickDrop", throwIfNotFound: true);
     }
 
     ~@GameInput()
@@ -518,6 +582,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Navigate;
     private readonly InputAction m_UI_Submit;
+    private readonly InputAction m_UI_Cancel;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -537,6 +602,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/Submit".
         /// </summary>
         public InputAction @Submit => m_Wrapper.m_UI_Submit;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/Cancel".
+        /// </summary>
+        public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -569,6 +638,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Submit.started += instance.OnSubmit;
             @Submit.performed += instance.OnSubmit;
             @Submit.canceled += instance.OnSubmit;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
         }
 
         /// <summary>
@@ -586,6 +658,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Submit.started -= instance.OnSubmit;
             @Submit.performed -= instance.OnSubmit;
             @Submit.canceled -= instance.OnSubmit;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
         }
 
         /// <summary>
@@ -627,6 +702,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Look;
     private readonly InputAction m_Game_Action;
     private readonly InputAction m_Game_Jump;
+    private readonly InputAction m_Game_PickDrop;
     /// <summary>
     /// Provides access to input actions defined in input action map "Game".
     /// </summary>
@@ -654,6 +730,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Game/Jump".
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_Game_Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/PickDrop".
+        /// </summary>
+        public InputAction @PickDrop => m_Wrapper.m_Game_PickDrop;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -692,6 +772,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @PickDrop.started += instance.OnPickDrop;
+            @PickDrop.performed += instance.OnPickDrop;
+            @PickDrop.canceled += instance.OnPickDrop;
         }
 
         /// <summary>
@@ -715,6 +798,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @PickDrop.started -= instance.OnPickDrop;
+            @PickDrop.performed -= instance.OnPickDrop;
+            @PickDrop.canceled -= instance.OnPickDrop;
         }
 
         /// <summary>
@@ -769,6 +855,13 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSubmit(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCancel(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Game" which allows adding and removing callbacks.
@@ -805,5 +898,12 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PickDrop" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPickDrop(InputAction.CallbackContext context);
     }
 }

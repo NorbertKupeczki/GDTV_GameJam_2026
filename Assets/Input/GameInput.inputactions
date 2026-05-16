@@ -23,6 +23,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "96b15b1a-e547-492a-8ffc-9d5dcfea3208",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -157,6 +166,28 @@
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "72d06fd4-7346-4dd6-b6e5-65fad38c24f2",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "725bd308-0a57-489b-a738-753a6c39e2d9",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -195,6 +226,15 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "ec84599e-cded-48d1-8672-f77ed67b682d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PickDrop",
+                    "type": "Button",
+                    "id": "824f1078-8821-4f88-9379-1d0dd25227db",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -331,6 +371,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec593abe-ecd6-4f6f-b104-bf5c1fb7b949",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PickDrop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bedcfed7-4d04-4576-bc22-335b88d3ad58",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PickDrop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
