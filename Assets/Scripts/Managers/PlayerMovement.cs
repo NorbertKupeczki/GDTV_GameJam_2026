@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PlayerMovement : MonoSingleton<PlayerMovement>
@@ -5,9 +6,9 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
     [SerializeField] private float m_MoveSpeed = 500f;
     [SerializeField] private float m_RotateSpeed = 10f;
     [SerializeField] private float m_JumpForce = 5f;
+    [SerializeField] private CinemachineCamera m_Camera;
     
     private Rigidbody m_Rigidbody;
-    private Camera m_Camera;
     private float m_CurrentXRotation = 0f;
     private bool m_IsGrounded = false;
 
@@ -25,8 +26,6 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
         m_Rigidbody.freezeRotation = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
-        m_Camera = Camera.main;
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -94,13 +93,14 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
         Vector2 mouseInput = InputManager.Instance.GetLookNormalized();
         
         // Rotate player rigidbody
-        float rotationAmount = mouseInput.x * m_RotateSpeed * Time.fixedDeltaTime;
+        float rotationAmount = mouseInput.x * m_RotateSpeed * Time.deltaTime;
         Quaternion deltaRotation = Quaternion.Euler(0f, rotationAmount, 0f);
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * deltaRotation);
         
         // Tilt the camera
         m_CurrentXRotation -= mouseInput.y * m_RotateSpeed * Time.deltaTime;
         m_CurrentXRotation = Mathf.Clamp(m_CurrentXRotation, -MAX_CAMERA_ROTATION, MAX_CAMERA_ROTATION);
+        Debug.Log($"{mouseInput.y} / {m_CurrentXRotation}");
         m_Camera.transform.localRotation = Quaternion.Euler(m_CurrentXRotation, 0f, 0f);
     }
 }
