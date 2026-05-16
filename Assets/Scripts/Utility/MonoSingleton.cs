@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    protected static T Instance { get; private set; }
+    public static T Instance { get; private set; }
 
     protected virtual void Awake()
     {

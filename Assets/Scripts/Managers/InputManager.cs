@@ -99,19 +99,16 @@ public class InputManager : MonoSingleton<InputManager>
 #region >>>>> GAME INPUT MAP HANDLERS <<<<<
     private void HandleActionPerformed(InputAction.CallbackContext obj)
     {
-        Debug.Log("Action Pressed");
         OnActionPressed?.Invoke();
     }
 
     private void HandleJumpPerformed(InputAction.CallbackContext obj)
     {
-        Debug.Log("Jump Pressed");
         OnJumpPressed?.Invoke();
     }
 
     private void HandlePickDropPerformed(InputAction.CallbackContext obj)
     {
-        Debug.Log("Pick/Drop Pressed");
         OnPickDropPressed?.Invoke();
     }
 #endregion

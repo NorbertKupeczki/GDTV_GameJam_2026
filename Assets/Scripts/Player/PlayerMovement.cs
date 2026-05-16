@@ -69,9 +69,7 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
     private void HandleMovement()
     {
         Vector3 moveInput = InputManager.Instance.GetMovementVectorNormalized();
-        
-        Vector3 moveDirection = (transform.forward * moveInput.z + transform.right * moveInput.x);
-        Vector3 targetVelocity = moveDirection * m_MoveSpeed;
+        Vector3 targetVelocity = (transform.forward * moveInput.z + transform.right * moveInput.x) * m_MoveSpeed;
         
         // Preserve the current Y velocity (gravity / jumping)
         targetVelocity.y = m_Rigidbody.linearVelocity.y;
@@ -100,7 +98,6 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
         // Tilt the camera
         m_CurrentXRotation -= mouseInput.y * m_RotateSpeed * Time.deltaTime;
         m_CurrentXRotation = Mathf.Clamp(m_CurrentXRotation, -MAX_CAMERA_ROTATION, MAX_CAMERA_ROTATION);
-        Debug.Log($"{mouseInput.y} / {m_CurrentXRotation}");
         m_Camera.transform.localRotation = Quaternion.Euler(m_CurrentXRotation, 0f, 0f);
     }
 }
