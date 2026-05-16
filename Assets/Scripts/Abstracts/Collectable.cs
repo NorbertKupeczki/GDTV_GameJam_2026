@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public abstract class Collectable : MonoBehaviour, ICollectable
+public abstract class Collectable : MonoBehaviour, IInteractable
 {
-    [SerializeField] protected GameEnums.CollectableTypes m_CollectableType = GameEnums.CollectableTypes.Undefined;
+    [SerializeField] protected ItemDataSO m_ItemData = null;
     
-    public GameEnums.CollectableTypes CollectableType => m_CollectableType;
+    public ItemDataSO ItemData => m_ItemData;
 
     protected Rigidbody m_Rigidbody;
     
@@ -19,7 +19,8 @@ public abstract class Collectable : MonoBehaviour, ICollectable
     
     protected virtual void Start()
     {
-        Assert.IsFalse(m_CollectableType is GameEnums.CollectableTypes.Undefined, $"Collectable type of {name} is undefined!");
+        Assert.IsNotNull(m_ItemData, $"ItemData on {name} is null!");
+        Assert.IsFalse(ItemData.CollectableType is GameEnums.CollectableTypes.Undefined, $"Collectable type of {name} is undefined!");
     }
     
     public abstract void Collect(Transform parent);
@@ -27,4 +28,14 @@ public abstract class Collectable : MonoBehaviour, ICollectable
     public abstract void Drop();
 
     public abstract void Use();
+    
+    public void MarkObject()
+    {
+        Debug.Log($"Mark Object {name}");
+    }
+
+    public void UnmarkObject()
+    {
+        Debug.Log($"Unmark Object {name}");
+    }
 }

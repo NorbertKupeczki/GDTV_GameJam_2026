@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractions
   m_Camera: {fileID: 5168141412728027130}
-  m_SphereRadius: 0.25
+  m_SphereRadius: 0.2
   m_MaxInteractionDistance: 2
   m_InteractableLayer:
     serializedVersion: 2

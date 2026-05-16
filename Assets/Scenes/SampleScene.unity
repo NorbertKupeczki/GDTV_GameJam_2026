@@ -572,7 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3cdbce54057c9b408dbbd0aa179a60d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Battery
-  m_CollectableType: 1
+  m_ItemData: {fileID: 11400000, guid: 8079a4133e38e154998ba309e18de193, type: 2}
 --- !u!136 &970823133
 CapsuleCollider:
   m_ObjectHideFlags: 0

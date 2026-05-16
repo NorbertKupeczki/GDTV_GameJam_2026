@@ -11,7 +11,7 @@ public class PlayerInteractions : MonoBehaviour
 
     [Header("Item carried")]
     [SerializeField] private Transform m_HeldItemTransform;
-    private Collectable m_TargetCollectable;
+    private IInteractable m_TargetInteractable;
     [SerializeField] private Collectable m_HeldItem;
 
     private void Start()
@@ -46,14 +46,20 @@ public class PlayerInteractions : MonoBehaviour
             m_MaxInteractionDistance,
             m_InteractableLayer);
 
-        if (!raycastHit.collider || !raycastHit.collider.TryGetComponent(out Collectable collectable))
+        if (!raycastHit.collider || !raycastHit.collider.TryGetComponent(out IInteractable interactable))
         {
-            //Debug.Log("No interactable found");
-            m_TargetCollectable = null;
+            if (m_TargetInteractable == null) return;
+            
+            m_TargetInteractable.UnmarkObject();
+            m_TargetInteractable = null;
             return;
         }
+
+        if (m_TargetInteractable != null) return;
         
-        m_TargetCollectable = collectable;
+        interactable.MarkObject();
+        m_TargetInteractable = interactable;
+
         //Debug.Log(collectable);
     }
     
@@ -70,9 +76,14 @@ public class PlayerInteractions : MonoBehaviour
             m_HeldItem = null;
             return;
         }
+
+        if (m_TargetInteractable == null) { return; }
         
-        m_HeldItem = m_TargetCollectable;
-        m_TargetCollectable?.Collect(m_HeldItemTransform);
-        m_TargetCollectable = null;
+        var collectable = m_TargetInteractable as Collectable;
+        if (!collectable) { return; }
+        
+        m_HeldItem = collectable;
+        m_HeldItem?.Collect(m_HeldItemTransform);
+        m_TargetInteractable = null;
     }
 }
