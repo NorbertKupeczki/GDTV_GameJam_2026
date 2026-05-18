@@ -32,4 +32,6 @@ public abstract class Station : MonoBehaviour, IInteractable
     {
         Debug.Log($"Unmark Object {name}");
     }
+
+    public GameEnums.InteractionType InteractionType => GameEnums.InteractionType.Insert;
 }

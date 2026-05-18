@@ -25,7 +25,8 @@ public class BatteryCharger : Station
 
     public override Collectable RemoveItem()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Removing Battery from Charger");
+        return null; // HERE WE NEED TO RETURN THE OBJECT TO THE PLAYER, NULL FOR NOW...
     }
 
     // Update is called once per frame

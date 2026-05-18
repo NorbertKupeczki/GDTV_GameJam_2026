@@ -40,24 +40,21 @@ public abstract class Collectable : MonoBehaviour, IInteractable
         transform.rotation = parent.rotation;
     }
 
-    public virtual void Drop()
+    public virtual void Drop(Vector3 dropPosition)
     {
         m_Rigidbody.useGravity = true;
         m_Rigidbody.isKinematic = false;
         m_Collider.enabled = true;
         
         transform.parent = null;
+        transform.position = dropPosition;
     }
 
     public abstract void Use();
-    
-    public void MarkObject()
-    {
-        Debug.Log($"Mark Object {name}");
-    }
 
-    public void UnmarkObject()
-    {
-        Debug.Log($"Unmark Object {name}");
-    }
+    public abstract void MarkObject();
+
+    public abstract void UnmarkObject();
+
+    public GameEnums.InteractionType InteractionType => GameEnums.InteractionType.Pickup;
 }

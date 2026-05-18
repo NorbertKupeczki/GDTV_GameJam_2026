@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoSingleton<PlayerManager>
 {
-    public event Action<bool> OnInteractableSelected;
+    public event Action<bool, GameEnums.InteractionType> OnInteractableSelected;
     
     private PlayerInteractions m_Interactions;
     
@@ -20,8 +20,8 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         m_Interactions.SetInteractionDelegate(SignalOnInteractableSelected);
     }
 
-    private void SignalOnInteractableSelected(bool interactable)
+    private void SignalOnInteractableSelected(bool interactable, GameEnums.InteractionType interactionType)
     {
-        OnInteractableSelected?.Invoke(interactable);
+        OnInteractableSelected?.Invoke(interactable, interactionType);
     }
 }

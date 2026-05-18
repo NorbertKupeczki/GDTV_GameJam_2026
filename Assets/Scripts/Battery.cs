@@ -12,13 +12,23 @@ public class Battery : Collectable
         base.Collect(parent);
     }
 
-    public override void Drop()
+    public override void Drop(Vector3 dropPosition)
     {
-        base.Drop();
+        base.Drop(dropPosition);
     }
 
     public override void Use()
     {
         Debug.Log("Battery used");
+    }
+
+    public override void MarkObject()
+    {
+        Debug.Log("Battery marked");
+    }
+
+    public override void UnmarkObject()
+    {
+        Debug.Log("Battery unmarked");
     }
 }

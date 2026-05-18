@@ -15,7 +15,7 @@ public class PlayerInteractions : MonoBehaviour
     private IInteractable m_TargetInteractable;
     [SerializeField] private Collectable m_HeldItem;
 
-    private Action<bool> m_SignalInteraction;
+    private Action<bool, GameEnums.InteractionType> m_SignalInteraction;
     
     private void Start()
     {
@@ -54,7 +54,7 @@ public class PlayerInteractions : MonoBehaviour
             if (m_TargetInteractable == null) return;
             
             m_TargetInteractable.UnmarkObject();
-            m_SignalInteraction?.Invoke(false);
+            m_SignalInteraction?.Invoke(false, GameEnums.InteractionType.None);
             m_TargetInteractable = null;
             return;
         }
@@ -62,7 +62,7 @@ public class PlayerInteractions : MonoBehaviour
         if (m_TargetInteractable != null) return;
         
         interactable.MarkObject();
-        m_SignalInteraction?.Invoke(true);
+        m_SignalInteraction?.Invoke(true, GameEnums.InteractionType.Pickup);
         m_TargetInteractable = interactable;
 
         //Debug.Log(collectable);
@@ -77,7 +77,7 @@ public class PlayerInteractions : MonoBehaviour
     {
         if (m_HeldItem)
         {
-            m_HeldItem.Drop();
+            m_HeldItem.Drop(m_Camera.transform.position + m_Camera.transform.forward);
             m_HeldItem = null;
             return;
         }
@@ -89,10 +89,10 @@ public class PlayerInteractions : MonoBehaviour
         
         m_HeldItem = collectable;
         m_HeldItem?.Collect(m_HeldItemTransform);
-        m_TargetInteractable = null;
+        //m_TargetInteractable = null;
     }
 
-    public void SetInteractionDelegate(Action<bool> delegateFunction)
+    public void SetInteractionDelegate(Action<bool, GameEnums.InteractionType> delegateFunction)
     {
         m_SignalInteraction = delegateFunction;
     }
