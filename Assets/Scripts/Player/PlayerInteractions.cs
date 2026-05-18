@@ -62,7 +62,7 @@ public class PlayerInteractions : MonoBehaviour
         if (m_TargetInteractable != null) return;
         
         interactable.MarkObject();
-        m_SignalInteraction?.Invoke(true, GameEnums.InteractionType.Pickup);
+        m_SignalInteraction?.Invoke(true, interactable.InteractionType);
         m_TargetInteractable = interactable;
 
         //Debug.Log(collectable);
