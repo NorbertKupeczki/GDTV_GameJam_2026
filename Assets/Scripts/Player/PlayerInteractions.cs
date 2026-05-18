@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class PlayerInteractions : MonoBehaviour
     private IInteractable m_TargetInteractable;
     [SerializeField] private Collectable m_HeldItem;
 
+    private Action<bool> m_SignalInteraction;
+    
     private void Start()
     {
         InputManager.Instance.OnPickDropPressed += HandlePickDrop;
@@ -51,6 +54,7 @@ public class PlayerInteractions : MonoBehaviour
             if (m_TargetInteractable == null) return;
             
             m_TargetInteractable.UnmarkObject();
+            m_SignalInteraction?.Invoke(false);
             m_TargetInteractable = null;
             return;
         }
@@ -58,6 +62,7 @@ public class PlayerInteractions : MonoBehaviour
         if (m_TargetInteractable != null) return;
         
         interactable.MarkObject();
+        m_SignalInteraction?.Invoke(true);
         m_TargetInteractable = interactable;
 
         //Debug.Log(collectable);
@@ -85,5 +90,10 @@ public class PlayerInteractions : MonoBehaviour
         m_HeldItem = collectable;
         m_HeldItem?.Collect(m_HeldItemTransform);
         m_TargetInteractable = null;
+    }
+
+    public void SetInteractionDelegate(Action<bool> delegateFunction)
+    {
+        m_SignalInteraction = delegateFunction;
     }
 }

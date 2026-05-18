@@ -1,8 +1,9 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class PlayerMovement : MonoSingleton<PlayerMovement>
+public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private float m_MoveSpeed = 500f;
     [SerializeField] private float m_RotateSpeed = 10f;
     [SerializeField] private float m_JumpForce = 5f;
@@ -14,10 +15,8 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
 
     private const float MAX_CAMERA_ROTATION = 60;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-        
         if (!TryGetComponent<Rigidbody>(out m_Rigidbody))
         {
             Debug.LogError($"<color=red><b>PlayerMovement</color></b> >> No rigidbody found on {name}");
