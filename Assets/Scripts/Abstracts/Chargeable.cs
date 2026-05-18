@@ -26,4 +26,6 @@ public abstract class Chargeable : MonoBehaviour, IInteractable
     public abstract void UnmarkObject();
 
     public GameEnums.InteractionType InteractionType => GameEnums.InteractionType.Charge;
+    
+    public GameObject InteractableGameObject => gameObject;
 }

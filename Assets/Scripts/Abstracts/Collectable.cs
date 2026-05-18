@@ -57,4 +57,6 @@ public abstract class Collectable : MonoBehaviour, IInteractable
     public abstract void UnmarkObject();
 
     public GameEnums.InteractionType InteractionType => GameEnums.InteractionType.Pickup;
+    
+    public GameObject InteractableGameObject => gameObject;
 }

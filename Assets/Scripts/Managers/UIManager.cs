@@ -30,8 +30,6 @@ public class UIManager : MonoSingleton<UIManager>
     
     private void ToggleInteractionText(bool toggle, GameEnums.InteractionType interactionType)
     {
-        if (m_InteractionText.gameObject.activeSelf == toggle) { return; }
-        
         m_InteractionText.gameObject.SetActive(toggle);
 
         m_InteractionText.text = interactionType switch

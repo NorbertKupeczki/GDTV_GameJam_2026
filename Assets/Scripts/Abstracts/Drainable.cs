@@ -27,4 +27,6 @@ public abstract class Drainable : MonoBehaviour, IInteractable
     public abstract void UnmarkObject();
 
     public GameEnums.InteractionType InteractionType => GameEnums.InteractionType.Drain;
+    
+    public GameObject InteractableGameObject => gameObject;
 }

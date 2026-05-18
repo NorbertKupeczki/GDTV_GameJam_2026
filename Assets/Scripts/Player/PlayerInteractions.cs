@@ -59,13 +59,27 @@ public class PlayerInteractions : MonoBehaviour
             return;
         }
 
-        if (m_TargetInteractable != null) return;
+        if (m_TargetInteractable != null)
+        {
+            if (m_TargetInteractable.InteractableGameObject == interactable.InteractableGameObject) return;
+            
+            m_TargetInteractable.UnmarkObject();
+            MarkNewInteractable(interactable);
+            return;
+        }
         
-        interactable.MarkObject();
-        m_SignalInteraction?.Invoke(true, interactable.InteractionType);
-        m_TargetInteractable = interactable;
-
+        MarkNewInteractable(interactable);
+        
         //Debug.Log(collectable);
+        return;
+        
+        // LOCAL FUNCTIONS \\
+        void MarkNewInteractable(IInteractable newInteractable)
+        {
+            m_TargetInteractable = newInteractable;
+            m_TargetInteractable.MarkObject();
+            m_SignalInteraction?.Invoke(true, newInteractable.InteractionType);
+        }
     }
     
     private void HandleAction()

@@ -34,4 +34,6 @@ public abstract class Station : MonoBehaviour, IInteractable
     }
 
     public GameEnums.InteractionType InteractionType => GameEnums.InteractionType.Insert;
+    
+    public GameObject InteractableGameObject => gameObject;
 }

@@ -6,4 +6,5 @@ public interface IInteractable
     public void UnmarkObject();
     
     public GameEnums.InteractionType InteractionType { get; }
+    public GameObject InteractableGameObject { get; }
 }
