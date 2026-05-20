@@ -6,11 +6,15 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] private TMP_Text m_InteractionText;
+    
     [Header("Pause Menu")]
     [SerializeField] private Transform m_PauseMenu;
     [SerializeField] private Button m_ResumeButton;
     [SerializeField] private Button m_SettingsButton;
     [SerializeField] private Button m_MainMenuButton;
+    
+    [Header("Settings Panel")]
+    [SerializeField] private SettingsPanel m_SettingsPanel;
 
     private const string INTERACTION_PICKUP = "Pick up";
     private const string INTERACTION_DRAIN = "Drain";
@@ -34,7 +38,10 @@ public class UIManager : MonoSingleton<UIManager>
         m_SettingsButton.onClick.AddListener(HandleSettingsButton);
         m_MainMenuButton.onClick.AddListener(HandleMainMenuButton);
         
+        m_SettingsPanel.OnSettingsPanelClose += HandleSettingsPanelClose;
+        
         m_PauseMenu.gameObject.SetActive(false);
+        m_SettingsPanel.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
@@ -45,6 +52,8 @@ public class UIManager : MonoSingleton<UIManager>
         m_ResumeButton.onClick.RemoveAllListeners();
         m_SettingsButton.onClick.RemoveAllListeners();
         m_MainMenuButton.onClick.RemoveAllListeners();
+        
+        m_SettingsPanel.OnSettingsPanelClose -= HandleSettingsPanelClose;
     }
     
     private void ToggleInteractionText(bool toggle, GameEnums.InteractionType interactionType)
@@ -91,11 +100,27 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void HandleSettingsButton()
     {
-        Debug.Log("Settings... not implemented yet...");
+        m_PauseMenu.gameObject.SetActive(false);
+        ToggleSettingsPanel(true);
     }
 
     private void HandleMainMenuButton()
     {
         Loader.LoadScene(Loader.Scenes.MainMenu);
+    }
+
+    private void HandleSettingsPanelClose()
+    {
+        ToggleSettingsPanel(false);
+    }
+    
+    private void ToggleSettingsPanel(bool toggle)
+    {
+        m_SettingsPanel.gameObject.SetActive(toggle);
+
+        if (toggle) { return; }
+        
+        m_PauseMenu.gameObject.SetActive(true);
+        m_SettingsButton.Select();
     }
 }
