@@ -68,8 +68,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector3 moveInput = InputManager.Instance.GetMovementVectorNormalized();
-        Vector3 targetVelocity = (transform.forward * moveInput.z + transform.right * moveInput.x) * m_MoveSpeed;
+       var targetVelocity = (
+            transform.forward * InputManager.Instance.GetMovementVectorNormalized().z +
+            transform.right * InputManager.Instance.GetMovementVectorNormalized().x) * m_MoveSpeed;
         
         // Preserve the current Y velocity (gravity / jumping)
         targetVelocity.y = m_Rigidbody.linearVelocity.y;
