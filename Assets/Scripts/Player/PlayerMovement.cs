@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private float m_CurrentXRotation = 0f;
     private bool m_IsGrounded = false;
 
-    private const float MAX_CAMERA_ROTATION = 60;
+    private const float MAX_CAMERA_TILT = 60;
 
     private void Awake()
     {
@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        m_CurrentXRotation = m_Camera.transform.rotation.eulerAngles.x;
         InputManager.Instance.OnJumpPressed += HandleJump;
     }
 
@@ -96,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
         
         // Tilt the camera
         m_CurrentXRotation -= mouseInput.y * m_RotateSpeed * Time.deltaTime;
-        m_CurrentXRotation = Mathf.Clamp(m_CurrentXRotation, -MAX_CAMERA_ROTATION, MAX_CAMERA_ROTATION);
+        m_CurrentXRotation = Mathf.Clamp(m_CurrentXRotation, -MAX_CAMERA_TILT, MAX_CAMERA_TILT);
         m_Camera.transform.localRotation = Quaternion.Euler(m_CurrentXRotation, 0f, 0f);
     }
 }

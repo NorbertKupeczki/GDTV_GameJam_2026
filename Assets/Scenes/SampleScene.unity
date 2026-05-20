@@ -568,6 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35fa6fc438ce4e4c880a5e412ae5e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmallChargeableObject
+  m_ChargeableData: {fileID: 0}
 --- !u!1 &512865493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,6 +1765,10 @@ PrefabInstance:
     - target: {fileID: 2189901803861654358, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5993677050831674250, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
