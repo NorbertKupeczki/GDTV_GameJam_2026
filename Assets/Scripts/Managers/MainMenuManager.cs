@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
@@ -25,7 +26,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void HandleStartButtonPressed()
     {
-        Debug.Log("Start Game");
+        Loader.LoadScene((Loader.Scenes)SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void HandleSettingsButtonPressed()
@@ -35,6 +36,10 @@ public class MainMenuManager : MonoBehaviour
 
     private void HandleQuitButtonPressed()
     {
-        Debug.Log("Quit");
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }
