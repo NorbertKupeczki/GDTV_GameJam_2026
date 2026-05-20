@@ -10,6 +10,8 @@ public class VolumeSlider : MonoBehaviour
     [SerializeField] private Slider m_Slider;
     [SerializeField] private TMP_Text m_SliderValueText;
     
+    private const float DEFAULT_VOLUME_VALUE = 5.0f;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -26,5 +28,14 @@ public class VolumeSlider : MonoBehaviour
     {
         m_SliderValueText.text = Mathf.RoundToInt(value).ToString();
         OnSliderValueChanged?.Invoke(value);
+    }
+    
+    public float GetSliderValue() => m_Slider.value;
+
+    public void LoadVolume(string prefKey)
+    {
+        m_Slider.value = PlayerPrefsManager.Instance.LoadFloat(prefKey, out float musicVolume)
+            ? musicVolume
+            : DEFAULT_VOLUME_VALUE;
     }
 }
