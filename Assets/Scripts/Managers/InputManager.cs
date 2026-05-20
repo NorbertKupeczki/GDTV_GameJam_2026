@@ -22,6 +22,7 @@ public class InputManager : MonoSingleton<InputManager>
     public event Action OnActionPressed;
     public event Action OnJumpPressed;
     public event Action OnPickDropPressed;
+    public event Action OnMenuPressed;
 
     [Header("DEBUG")]
     [SerializeField] private Vector2 m_MoveVector;
@@ -63,6 +64,7 @@ public class InputManager : MonoSingleton<InputManager>
         m_GameInput.Game.Action.performed += HandleActionPerformed;
         m_GameInput.Game.Jump.performed += HandleJumpPerformed;
         m_GameInput.Game.PickDrop.performed += HandlePickDropPerformed;
+        m_GameInput.Game.Menu.performed += HandleMenuPerformed;
     }
 
     private void OnDestroy()
@@ -76,6 +78,7 @@ public class InputManager : MonoSingleton<InputManager>
         m_GameInput.Game.Action.performed -= HandleActionPerformed;
         m_GameInput.Game.Jump.performed -= HandleJumpPerformed;
         m_GameInput.Game.PickDrop.performed -= HandlePickDropPerformed;
+        m_GameInput.Game.Menu.performed -= HandleMenuPerformed;
     }
 
 #region >>>>> UI INPUT MAP HANDLERS <<<<<
@@ -110,6 +113,11 @@ public class InputManager : MonoSingleton<InputManager>
     private void HandlePickDropPerformed(InputAction.CallbackContext obj)
     {
         OnPickDropPressed?.Invoke();
+    }
+
+    private void HandleMenuPerformed(InputAction.CallbackContext obj)
+    {
+        OnMenuPressed?.Invoke();
     }
 #endregion
     

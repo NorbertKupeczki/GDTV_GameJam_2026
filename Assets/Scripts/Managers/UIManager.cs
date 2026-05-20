@@ -1,10 +1,16 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] private TMP_Text m_InteractionText;
+    [Header("Pause Menu")]
+    [SerializeField] private Transform m_PauseMenu;
+    [SerializeField] private Button m_ResumeButton;
+    [SerializeField] private Button m_SettingsButton;
+    [SerializeField] private Button m_MainMenuButton;
 
     private const string INTERACTION_PICKUP = "Pick up";
     private const string INTERACTION_DRAIN = "Drain";
@@ -21,11 +27,24 @@ public class UIManager : MonoSingleton<UIManager>
     private void Start()
     {
         PlayerManager.Instance.OnInteractableSelected += ToggleInteractionText;
+        InputManager.Instance.OnMenuPressed += HandleMenuButtonPressed;
+        
+        // Button onClick subscriptions
+        m_ResumeButton.onClick.AddListener(HandleResumeButton);
+        m_SettingsButton.onClick.AddListener(HandleSettingsButton);
+        m_MainMenuButton.onClick.AddListener(HandleMainMenuButton);
+        
+        m_PauseMenu.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
     {
         PlayerManager.Instance.OnInteractableSelected -= ToggleInteractionText;
+        InputManager.Instance.OnMenuPressed -= HandleMenuButtonPressed;
+        
+        m_ResumeButton.onClick.RemoveAllListeners();
+        m_SettingsButton.onClick.RemoveAllListeners();
+        m_MainMenuButton.onClick.RemoveAllListeners();
     }
     
     private void ToggleInteractionText(bool toggle, GameEnums.InteractionType interactionType)
@@ -41,5 +60,42 @@ public class UIManager : MonoSingleton<UIManager>
             GameEnums.InteractionType.Insert => INTERACTION_INSERT,
             _ => throw new ArgumentOutOfRangeException(nameof(interactionType), interactionType, null)
         };
+    }
+
+    private void HandleMenuButtonPressed()
+    {
+        TogglePauseGame(true);
+    }
+
+    private void TogglePauseGame(bool pause)
+    {
+        // Stop/resume time
+        Time.timeScale = pause ? 0 : 1;
+        
+        // Switch Action maps
+        InputManager.Instance.SwitchToInputMap(pause? InputManager.InputMaps.UI : InputManager.InputMaps.Game);
+
+        // Show UI element
+        m_PauseMenu.gameObject.SetActive(pause);
+        
+        if (pause)
+        {
+            m_ResumeButton.Select();
+        }
+    }
+    
+    private void HandleResumeButton()
+    {
+        TogglePauseGame(false);
+    }
+
+    private void HandleSettingsButton()
+    {
+        Debug.Log("Settings... not implemented yet...");
+    }
+
+    private void HandleMainMenuButton()
+    {
+        Loader.LoadScene(Loader.Scenes.MainMenu);
     }
 }

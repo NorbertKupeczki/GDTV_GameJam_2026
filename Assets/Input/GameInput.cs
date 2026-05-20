@@ -140,7 +140,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""Keyboard_Controls"",
+                    ""name"": ""Keyboard_Controls_WASD"",
                     ""id"": ""11002cf3-77b1-4c0b-804f-e99cfd18f423"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -187,6 +187,61 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""name"": ""right"",
                     ""id"": ""79256d66-6a92-4283-9ba7-93ec6b595c6c"",
                     ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Keyboard_Controls_Arrows"",
+                    ""id"": ""ee9e76d8-0243-4577-98f0-d29401c0bae0"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""ae821659-8e9e-4a18-8c62-40e6474ffa75"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""350be017-148d-4d23-a7aa-00c1d3354a68"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4d2d7352-1181-4990-8449-74079493ee1f"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""f96c41fa-551a-4e07-90a1-f7450bcbca5b"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -365,6 +420,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""1bd7697a-5840-486f-a0ee-7b63ac83a955"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -521,6 +585,28 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""PickDrop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""05d13ba0-dcd1-401d-b6a4-761a6c1d9c47"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b117bc10-fcb3-4659-84c7-2c113266ba14"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -541,6 +627,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_Game_Action = m_Game.FindAction("Action", throwIfNotFound: true);
         m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
         m_Game_PickDrop = m_Game.FindAction("PickDrop", throwIfNotFound: true);
+        m_Game_Menu = m_Game.FindAction("Menu", throwIfNotFound: true);
     }
 
     ~@GameInput()
@@ -767,6 +854,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Action;
     private readonly InputAction m_Game_Jump;
     private readonly InputAction m_Game_PickDrop;
+    private readonly InputAction m_Game_Menu;
     /// <summary>
     /// Provides access to input actions defined in input action map "Game".
     /// </summary>
@@ -798,6 +886,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Game/PickDrop".
         /// </summary>
         public InputAction @PickDrop => m_Wrapper.m_Game_PickDrop;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/Menu".
+        /// </summary>
+        public InputAction @Menu => m_Wrapper.m_Game_Menu;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -839,6 +931,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @PickDrop.started += instance.OnPickDrop;
             @PickDrop.performed += instance.OnPickDrop;
             @PickDrop.canceled += instance.OnPickDrop;
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
         }
 
         /// <summary>
@@ -865,6 +960,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @PickDrop.started -= instance.OnPickDrop;
             @PickDrop.performed -= instance.OnPickDrop;
             @PickDrop.canceled -= instance.OnPickDrop;
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
         }
 
         /// <summary>
@@ -983,5 +1081,12 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPickDrop(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Menu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMenu(InputAction.CallbackContext context);
     }
 }
