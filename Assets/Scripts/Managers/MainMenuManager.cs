@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
@@ -26,7 +25,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void HandleStartButtonPressed()
     {
-        Loader.LoadScene((Loader.Scenes)SceneManager.GetActiveScene().buildIndex + 1);
+        Loader.LoadScene(Loader.Scenes.GameScene);
     }
 
     private void HandleSettingsButtonPressed()
