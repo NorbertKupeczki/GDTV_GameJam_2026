@@ -23,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
         }
         
         m_Rigidbody.freezeRotation = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     {
         m_CurrentXRotation = m_Camera.transform.rotation.eulerAngles.x;
         InputManager.Instance.OnJumpPressed += HandleJump;
+        
+        InputManager.Instance.SwitchToInputMap(InputManager.InputMaps.Game);
     }
 
     private void OnDestroy()

@@ -16,12 +16,15 @@ public class MainMenuManager : MonoBehaviour
         m_StartGameButton.onClick.AddListener(HandleStartButtonPressed);
         m_SettingsButton.onClick.AddListener(HandleSettingsButtonPressed);
         m_QuitButton.onClick.AddListener(HandleQuitButtonPressed);
-        
+
         m_SettingsPanel.OnSettingsPanelClose += HandleCloseSettingsPanel;
     }
 
     private void Start()
     {
+        InputManager.Instance.SwitchToInputMap(InputManager.InputMaps.UI);
+        InputManager.Instance.ToggleLockCursor(true);
+        
         m_StartGameButton.Select();
         ToggleSettingsPanel(false, false);
     }

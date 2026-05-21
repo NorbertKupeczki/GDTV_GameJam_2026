@@ -3,9 +3,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Loader : MonoBehaviour
+public class Loader : MonoSingleton<Loader>
 {
-    public static Loader Instance {get; private set;}
     public event Action<float> OnLoadProgressChanged;
     
     public enum Scenes
@@ -15,24 +14,17 @@ public class Loader : MonoBehaviour
         LoadingScene
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Debug.Log("Warning: multiple Loader found! Destroying duplicate!");
-            Destroy(gameObject);
-        }
-        
+        base.Awake();
         DontDestroyOnLoad(gameObject);
     }
 
     public static void LoadScene(Scenes scene)
     {
         SceneManager.LoadScene((int)Scenes.LoadingScene);
+        InputManager.Instance.DisableAllInputMaps();
+        
         Instance.StartCoroutine(LoadAsync(scene));
     }
 
