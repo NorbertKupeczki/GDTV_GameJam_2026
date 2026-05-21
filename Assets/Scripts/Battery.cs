@@ -9,22 +9,26 @@ public class Battery : Collectable
     
     public override void Collect(Transform parent)
     {
-        m_Rigidbody.useGravity = false;
-        m_Rigidbody.isKinematic = true;
-        transform.parent = parent;
-        transform.position = parent.position;
-        transform.rotation = parent.rotation;
+        base.Collect(parent);
     }
 
-    public override void Drop()
+    public override void Drop(Vector3 dropPosition)
     {
-        m_Rigidbody.useGravity = true;
-        m_Rigidbody.isKinematic = false;
-        transform.parent = null;
+        base.Drop(dropPosition);
     }
 
     public override void Use()
     {
-        Debug.Log("Battery collected");
+        Debug.Log("Battery used");
+    }
+
+    public override void MarkObject()
+    {
+        Debug.Log("Battery marked");
+    }
+
+    public override void UnmarkObject()
+    {
+        Debug.Log("Battery unmarked");
     }
 }

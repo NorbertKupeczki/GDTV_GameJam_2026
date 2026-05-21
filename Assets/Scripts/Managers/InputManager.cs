@@ -11,7 +11,6 @@ public class InputManager : MonoSingleton<InputManager>
     }
     
     private GameInput m_GameInput;
-    private InputMaps m_ActiveInputMap = InputMaps.Game;
 
     // UI Input Events
     public event Action<Vector2> OnUiNavigatePressed;
@@ -22,6 +21,7 @@ public class InputManager : MonoSingleton<InputManager>
     public event Action OnActionPressed;
     public event Action OnJumpPressed;
     public event Action OnPickDropPressed;
+    public event Action OnMenuPressed;
 
     [Header("DEBUG")]
     [SerializeField] private Vector2 m_MoveVector;
@@ -51,8 +51,7 @@ public class InputManager : MonoSingleton<InputManager>
     {
         m_GameInput = new GameInput();
         
-        m_GameInput.UI.Disable();
-        m_GameInput.Game.Enable();
+        DisableAllInputMaps();
         
         // Connecting UI Input action mapping to handlers
         m_GameInput.UI.Navigate.performed += HandleNavigatePerformed;
@@ -63,6 +62,7 @@ public class InputManager : MonoSingleton<InputManager>
         m_GameInput.Game.Action.performed += HandleActionPerformed;
         m_GameInput.Game.Jump.performed += HandleJumpPerformed;
         m_GameInput.Game.PickDrop.performed += HandlePickDropPerformed;
+        m_GameInput.Game.Menu.performed += HandleMenuPerformed;
     }
 
     private void OnDestroy()
@@ -76,6 +76,7 @@ public class InputManager : MonoSingleton<InputManager>
         m_GameInput.Game.Action.performed -= HandleActionPerformed;
         m_GameInput.Game.Jump.performed -= HandleJumpPerformed;
         m_GameInput.Game.PickDrop.performed -= HandlePickDropPerformed;
+        m_GameInput.Game.Menu.performed -= HandleMenuPerformed;
     }
 
 #region >>>>> UI INPUT MAP HANDLERS <<<<<
@@ -111,6 +112,11 @@ public class InputManager : MonoSingleton<InputManager>
     {
         OnPickDropPressed?.Invoke();
     }
+
+    private void HandleMenuPerformed(InputAction.CallbackContext obj)
+    {
+        OnMenuPressed?.Invoke();
+    }
 #endregion
     
     public Vector3 GetMovementVectorNormalized()
@@ -137,14 +143,16 @@ public class InputManager : MonoSingleton<InputManager>
             m_GameInput.Game.Disable();
         }
     }
+
+    public void DisableAllInputMaps()
+    {
+        m_GameInput.UI.Disable();
+        m_GameInput.Game.Disable();
+    }
     
     public void SwitchToInputMap(InputMaps inputMap)
     {
-        if (inputMap == m_ActiveInputMap) { return; }
-        
-        m_ActiveInputMap = inputMap;
-
-        if (m_ActiveInputMap == InputMaps.Game)
+        if (inputMap == InputMaps.Game)
         {
             m_GameInput.Game.Enable();
             m_GameInput.UI.Disable();
@@ -154,5 +162,11 @@ public class InputManager : MonoSingleton<InputManager>
             m_GameInput.Game.Disable();
             m_GameInput.UI.Enable();
         }
+    }
+
+    public void ToggleLockCursor(bool toggle)
+    {
+        Cursor.lockState = toggle ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !toggle;
     }
 }

@@ -1,8 +1,9 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class PlayerMovement : MonoSingleton<PlayerMovement>
+public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private float m_MoveSpeed = 500f;
     [SerializeField] private float m_RotateSpeed = 10f;
     [SerializeField] private float m_JumpForce = 5f;
@@ -12,26 +13,25 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
     private float m_CurrentXRotation = 0f;
     private bool m_IsGrounded = false;
 
-    private const float MAX_CAMERA_ROTATION = 60;
+    private const float MAX_CAMERA_TILT = 60;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-        
         if (!TryGetComponent<Rigidbody>(out m_Rigidbody))
         {
             Debug.LogError($"<color=red><b>PlayerMovement</color></b> >> No rigidbody found on {name}");
         }
         
         m_Rigidbody.freezeRotation = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        m_CurrentXRotation = m_Camera.transform.rotation.eulerAngles.x;
         InputManager.Instance.OnJumpPressed += HandleJump;
+        
+        InputManager.Instance.SwitchToInputMap(InputManager.InputMaps.Game);
     }
 
     private void OnDestroy()
@@ -68,8 +68,9 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
 
     private void HandleMovement()
     {
-        Vector3 moveInput = InputManager.Instance.GetMovementVectorNormalized();
-        Vector3 targetVelocity = (transform.forward * moveInput.z + transform.right * moveInput.x) * m_MoveSpeed;
+       var targetVelocity = (
+            transform.forward * InputManager.Instance.GetMovementVectorNormalized().z +
+            transform.right * InputManager.Instance.GetMovementVectorNormalized().x) * m_MoveSpeed;
         
         // Preserve the current Y velocity (gravity / jumping)
         targetVelocity.y = m_Rigidbody.linearVelocity.y;
@@ -97,7 +98,7 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
         
         // Tilt the camera
         m_CurrentXRotation -= mouseInput.y * m_RotateSpeed * Time.deltaTime;
-        m_CurrentXRotation = Mathf.Clamp(m_CurrentXRotation, -MAX_CAMERA_ROTATION, MAX_CAMERA_ROTATION);
+        m_CurrentXRotation = Mathf.Clamp(m_CurrentXRotation, -MAX_CAMERA_TILT, MAX_CAMERA_TILT);
         m_Camera.transform.localRotation = Quaternion.Euler(m_CurrentXRotation, 0f, 0f);
     }
 }
