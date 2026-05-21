@@ -8,7 +8,8 @@ public static class GameEnums
         Pickup,
         Drain,
         Charge,
-        Insert
+        Insert,
+        Use
     }
     
     public enum CollectableTypes

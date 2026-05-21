@@ -84,7 +84,12 @@ public class PlayerInteractions : MonoBehaviour
     
     private void HandleAction()
     {
-        Debug.Log("Handle Action || Yet Unimplemented...");
+        if (m_TargetInteractable == null) { return; }
+        
+        var usable =  m_TargetInteractable as Usable;
+        if (!usable) { return; }
+        
+        usable.Use();
     }
 
     private void HandlePickDrop()

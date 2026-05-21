@@ -20,6 +20,7 @@ public class UIManager : MonoSingleton<UIManager>
     private const string INTERACTION_DRAIN = "Drain";
     private const string INTERACTION_CHARGE = "Charge";
     private const string INTERACTION_INSERT = "Insert";
+    private const string INTERACTION_USE = "USE";
     
     protected override void Awake()
     {
@@ -67,6 +68,7 @@ public class UIManager : MonoSingleton<UIManager>
             GameEnums.InteractionType.Drain  => INTERACTION_DRAIN,
             GameEnums.InteractionType.Charge => INTERACTION_CHARGE,
             GameEnums.InteractionType.Insert => INTERACTION_INSERT,
+            GameEnums.InteractionType.Use => INTERACTION_USE,
             _ => throw new ArgumentOutOfRangeException(nameof(interactionType), interactionType, null)
         };
     }
