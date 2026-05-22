@@ -78,18 +78,42 @@ public class PlayerInteractions : MonoBehaviour
         {
             m_TargetInteractable = newInteractable;
             m_TargetInteractable.MarkObject();
+            // TODO: If interaction type is Insert, check whether the object held can be inserted first
+            if (m_TargetInteractable.InteractionType == GameEnums.InteractionType.Drain)
+            {
+                var drainable = m_TargetInteractable as Drainable;
+                if (drainable && !drainable.IsDrainable) { return; }
+            }
             m_SignalInteraction?.Invoke(true, newInteractable.InteractionType);
         }
     }
     
     private void HandleAction()
     {
-        if (m_TargetInteractable == null) { return; }
-        
-        var usable =  m_TargetInteractable as Usable;
-        if (!usable) { return; }
-        
-        usable.Use();
+        switch (m_TargetInteractable)
+        {
+            case null:
+                return;
+            case Usable usable:
+                usable.Use();
+                break;
+            case Drainable drainable:
+            {
+                if (!drainable.IsDrainable) { break; }
+                PlayerManager.Instance.ChargePlayerBattery(drainable.DrainPower());
+                if (!drainable.IsDrainable)
+                {
+                    m_SignalInteraction?.Invoke(false, GameEnums.InteractionType.None);
+                }
+                break;
+            }
+            case Chargeable chargeable:
+                chargeable.ChargeObject();
+                break;
+            case Station station when m_HeldItem:
+                var isSuccessful = station.DepositItem(m_HeldItem); // Do something with the boolean
+                break;
+        }
     }
 
     private void HandlePickDrop()

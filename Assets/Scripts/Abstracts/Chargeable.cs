@@ -14,11 +14,10 @@ public abstract class Chargeable : MonoBehaviour, IInteractable
             Debug.LogError($"Collectable {gameObject.name} is missing a Collider!");
         }
     }
-    
-    protected virtual void Start()
+
+    public virtual void ChargeObject()
     {
-        //Assert.IsNotNull(m_ItemData, $"ItemData on {name} is null!");
-        //Assert.IsFalse(ItemData.CollectableType is GameEnums.CollectableTypes.Undefined, $"Collectable type of {name} is undefined!");
+        Debug.Log("Charge Object... Not implemented logic yet...");
     }
 
     public abstract void MarkObject();

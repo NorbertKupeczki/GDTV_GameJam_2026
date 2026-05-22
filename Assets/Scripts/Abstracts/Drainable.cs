@@ -3,9 +3,12 @@ using UnityEngine.Assertions;
 
 public abstract class Drainable : MonoBehaviour, IInteractable
 {
-    [SerializeField] protected DrainableItemSO m_DrainableData = null;
-    public DrainableItemSO ItemData => m_DrainableData;
-
+    [Header("Draineble")]
+    [SerializeField, Range(10,100)] protected uint m_DrainableAmount;
+    [SerializeField] protected bool m_IsDrainable;
+    
+    public bool IsDrainable => m_IsDrainable;
+    
     protected Collider m_Collider;
     
     protected virtual void Awake()
@@ -18,9 +21,10 @@ public abstract class Drainable : MonoBehaviour, IInteractable
     
     protected virtual void Start()
     {
-        //Assert.IsNotNull(m_ItemData, $"ItemData on {name} is null!");
-        //Assert.IsFalse(ItemData.CollectableType is GameEnums.CollectableTypes.Undefined, $"Collectable type of {name} is undefined!");
+        
     }
+
+    public abstract uint DrainPower();
 
     public abstract void MarkObject();
 

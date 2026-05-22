@@ -1,37 +1,27 @@
 using UnityEngine;
 
-public class BatteryCharger : Station
+public class BatteryCharger : Drainable
 {
-    protected override void Awake()
+    [Header("Battery Charger")]
+    [SerializeField] private uint m_AmountOfCharges;
+    
+    public override uint DrainPower()
     {
-        base.Awake();
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-    }
-
-    public override bool DepositItem(Collectable item)
-    {
-        if (m_DepositableItems != item.ItemData) { return false; }
+        if (m_AmountOfCharges <= 0) { return 0; }
         
-        //Do something with the item...
-        m_DepositedItem = item;
-        item.transform.parent = m_DepositableItemParent;
-        item.transform.position = m_DepositableItemParent.position;
-        return true;
+        m_AmountOfCharges--;
+        if (m_AmountOfCharges == 0) { m_IsDrainable = false;}
+        
+        return m_DrainableAmount;
     }
 
-    public override Collectable RemoveItem()
+    public override void MarkObject()
     {
-        Debug.Log("Removing Battery from Charger");
-        return null; // HERE WE NEED TO RETURN THE OBJECT TO THE PLAYER, NULL FOR NOW...
+        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void UnmarkObject()
     {
-        //Do something if it has a not fully charged battery
+        
     }
 }
