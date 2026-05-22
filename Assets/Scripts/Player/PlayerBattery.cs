@@ -10,7 +10,7 @@ public class PlayerBattery : MonoBehaviour
 
     private const float MAX_BATTERY_CHARGE = 1.0f;
     private const float DRAIN_INTERVAL = 0.1f;
-    private const float DRAIN_RATE = -0.0001f;
+    private const float DRAIN_RATE = -0.001f;
     
     private float m_BatteryLevel;
     

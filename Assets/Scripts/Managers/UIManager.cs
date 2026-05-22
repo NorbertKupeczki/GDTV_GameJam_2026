@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,11 +18,11 @@ public class UIManager : MonoSingleton<UIManager>
     [Header("Settings Panel")]
     [SerializeField] private SettingsPanel m_SettingsPanel;
 
-    private const string INTERACTION_PICKUP = "Pick up";
+    private const string INTERACTION_PICKUP = "Pick up <color=blue><b>(F)";
     private const string INTERACTION_DRAIN = "Drain";
     private const string INTERACTION_CHARGE = "Charge";
-    private const string INTERACTION_INSERT = "Insert";
-    private const string INTERACTION_USE = "USE";
+    private const string INTERACTION_INSERT = "Insert <color=blue><b>(F)";
+    private const string INTERACTION_USE = "Use <color=blue><b>(E)";
     
     protected override void Awake()
     {
@@ -135,7 +136,22 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void HandleBatteryChargeChange(float value)
     {
-        m_BatteryChargeText.text = "Battery Charge: " + (100.0f * value).ToString("F2") + "%";
+        var sb = new StringBuilder();
+        sb.Append("Battery Charge: ");
+        sb.Append((100.0f * value).ToString("F2"));
+        sb.Append("%");
+        
+        switch (value)
+        {
+            case < 0.1f:
+                sb.Append("\n<b>>> <color=red>WARNING! CRITICAL BATTERY! </color><<");
+                break;
+            case < 0.3f:
+                sb.Append("\n<b>>> <color=yellow>WARNING! LOW BATTERY! </color><<");
+                break;
+        } 
+        
+        m_BatteryChargeText.text = sb.ToString();
     }
 
     private void HandleBatteryOutOfCharge()
