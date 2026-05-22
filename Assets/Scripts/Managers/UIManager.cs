@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] private TMP_Text m_InteractionText;
+    [SerializeField] private TMP_Text m_BatteryChargeText;
     
     [Header("Pause Menu")]
     [SerializeField] private Transform m_PauseMenu;
@@ -41,6 +42,9 @@ public class UIManager : MonoSingleton<UIManager>
         
         m_SettingsPanel.OnSettingsPanelClose += HandleSettingsPanelClose;
         
+        PlayerManager.Instance.GetBattery.OnBatteryChargeChanged += HandleBatteryChargeChange;
+        PlayerManager.Instance.GetBattery.OnBatteryIsFlat += HandleBatteryOutOfCharge;
+        
         m_PauseMenu.gameObject.SetActive(false);
         m_SettingsPanel.gameObject.SetActive(false);
     }
@@ -55,6 +59,9 @@ public class UIManager : MonoSingleton<UIManager>
         m_MainMenuButton.onClick.RemoveAllListeners();
         
         m_SettingsPanel.OnSettingsPanelClose -= HandleSettingsPanelClose;
+        
+        PlayerManager.Instance.GetBattery.OnBatteryChargeChanged -= HandleBatteryChargeChange;
+        PlayerManager.Instance.GetBattery.OnBatteryIsFlat -= HandleBatteryOutOfCharge;
     }
     
     private void ToggleInteractionText(bool toggle, GameEnums.InteractionType interactionType)
@@ -124,5 +131,15 @@ public class UIManager : MonoSingleton<UIManager>
         
         m_PauseMenu.gameObject.SetActive(true);
         m_SettingsButton.Select();
+    }
+
+    private void HandleBatteryChargeChange(float value)
+    {
+        m_BatteryChargeText.text = "Battery Charge: " + (100.0f * value).ToString("F2") + "%";
+    }
+
+    private void HandleBatteryOutOfCharge()
+    {
+        Debug.Log("Battery is out of charge...");
     }
 }
