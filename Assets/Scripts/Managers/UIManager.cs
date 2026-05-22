@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] private TMP_Text m_InteractionText;
+    [SerializeField] private TMP_Text m_AuxiliaryText;
     [SerializeField] private TMP_Text m_BatteryChargeText;
     
     [Header("Pause Menu")]
@@ -18,11 +19,11 @@ public class UIManager : MonoSingleton<UIManager>
     [Header("Settings Panel")]
     [SerializeField] private SettingsPanel m_SettingsPanel;
 
-    private const string INTERACTION_PICKUP = "Pick up <color=blue><b>(F)";
-    private const string INTERACTION_DRAIN = "Drain";
-    private const string INTERACTION_CHARGE = "Charge";
-    private const string INTERACTION_INSERT = "Insert <color=blue><b>(F)";
-    private const string INTERACTION_USE = "Use <color=blue><b>(E)";
+    private const string INTERACTION_PICKUP = "Pick up <color=#00ffffff><b>(F)";
+    private const string INTERACTION_DRAIN = "Drain <color=#00ffffff><b>(E)";
+    private const string INTERACTION_CHARGE = "Charge <color=#00ffffff><b>(E)";
+    private const string INTERACTION_INSERT = "Insert <color=#00ffffff><b>(E)";
+    private const string INTERACTION_USE = "Use <color=#00ffffff><b>(E)";
     
     protected override void Awake()
     {
@@ -79,6 +80,16 @@ public class UIManager : MonoSingleton<UIManager>
             GameEnums.InteractionType.Use => INTERACTION_USE,
             _ => throw new ArgumentOutOfRangeException(nameof(interactionType), interactionType, null)
         };
+    }
+
+    public void ToggleAuxiliaryText(bool toggle, string text = "")
+    {
+        m_AuxiliaryText.gameObject.SetActive(toggle);
+
+        if (toggle)
+        {
+            m_AuxiliaryText.text = text;
+        }
     }
 
     private void HandleMenuButtonPressed()
