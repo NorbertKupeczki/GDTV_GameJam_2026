@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +8,7 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private TMP_Text m_InteractionText;
     [SerializeField] private TMP_Text m_AuxiliaryText;
     [SerializeField] private TMP_Text m_BatteryChargeText;
+    [SerializeField] private TMP_Text m_BatteryStatusText;
     
     [Header("Pause Menu")]
     [SerializeField] private Transform m_PauseMenu;
@@ -148,22 +148,15 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void HandleBatteryChargeChange(float value)
     {
-        var sb = new StringBuilder();
-        sb.Append("Battery Charge: ");
-        sb.Append((100.0f * value).ToString("F2"));
-        sb.Append("%");
-        
-        switch (value)
+        m_BatteryChargeText.text = (100.0f * value).ToString("F2");
+
+        m_BatteryStatusText.text = value switch
         {
-            case < 0.1f:
-                sb.Append("\n<b>>> <color=red>WARNING! CRITICAL BATTERY! </color><<");
-                break;
-            case < 0.3f:
-                sb.Append("\n<b>>> <color=yellow>WARNING! LOW BATTERY! </color><<");
-                break;
-        } 
-        
-        m_BatteryChargeText.text = sb.ToString();
+            < 0.1f => "<color=red>CRITICAL!</color>",
+            < 0.3f => "<color=yellow>WARNING!</color>",
+            > 0.3f => "<color=green>OK</color>",
+            _ => ""
+        };
     }
 
     private void HandleBatteryOutOfCharge()

@@ -429,6 +429,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PlayerArm"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f388b5a-c9a8-4514-b911-5d9c40eef0c9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -607,6 +616,28 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b50488b-9997-4a01-80fd-cd29e209c571"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlayerArm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b7b687d-9e28-48be-9d0e-7b702f2ea46e"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlayerArm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -628,6 +659,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
         m_Game_PickDrop = m_Game.FindAction("PickDrop", throwIfNotFound: true);
         m_Game_Menu = m_Game.FindAction("Menu", throwIfNotFound: true);
+        m_Game_PlayerArm = m_Game.FindAction("PlayerArm", throwIfNotFound: true);
     }
 
     ~@GameInput()
@@ -855,6 +887,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Jump;
     private readonly InputAction m_Game_PickDrop;
     private readonly InputAction m_Game_Menu;
+    private readonly InputAction m_Game_PlayerArm;
     /// <summary>
     /// Provides access to input actions defined in input action map "Game".
     /// </summary>
@@ -890,6 +923,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Game/Menu".
         /// </summary>
         public InputAction @Menu => m_Wrapper.m_Game_Menu;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/PlayerArm".
+        /// </summary>
+        public InputAction @PlayerArm => m_Wrapper.m_Game_PlayerArm;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -934,6 +971,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Menu.started += instance.OnMenu;
             @Menu.performed += instance.OnMenu;
             @Menu.canceled += instance.OnMenu;
+            @PlayerArm.started += instance.OnPlayerArm;
+            @PlayerArm.performed += instance.OnPlayerArm;
+            @PlayerArm.canceled += instance.OnPlayerArm;
         }
 
         /// <summary>
@@ -963,6 +1003,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Menu.started -= instance.OnMenu;
             @Menu.performed -= instance.OnMenu;
             @Menu.canceled -= instance.OnMenu;
+            @PlayerArm.started -= instance.OnPlayerArm;
+            @PlayerArm.performed -= instance.OnPlayerArm;
+            @PlayerArm.canceled -= instance.OnPlayerArm;
         }
 
         /// <summary>
@@ -1088,5 +1131,12 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PlayerArm" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPlayerArm(InputAction.CallbackContext context);
     }
 }
