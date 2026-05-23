@@ -286,7 +286,7 @@ Transform:
   m_GameObject: {fileID: 6721302777517082589}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6, z: -3}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -540,7 +540,8 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 8249716194775891670}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3431604679833552813, guid: 3ca4a8be6aa867b408716ecf6c4a74ea, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
