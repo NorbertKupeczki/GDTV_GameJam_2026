@@ -1461,6 +1461,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}
+--- !u!114 &5509655520744854504 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3789896710778094152, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}
+  m_PrefabInstance: {fileID: 5509655520744854503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &5509655520744854505 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5137870960103372628, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}
+  m_PrefabInstance: {fileID: 5509655520744854503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &5719334546472881449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1726,6 +1748,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8994921615339126886, guid: 125896d3f1b9c0a47b6173a5b5f0dd51, type: 3}
+      propertyPath: m_BatteryChargeText
+      value: 
+      objectReference: {fileID: 5509655520744854505}
+    - target: {fileID: 8994921615339126886, guid: 125896d3f1b9c0a47b6173a5b5f0dd51, type: 3}
+      propertyPath: m_BatteryStatusText
+      value: 
+      objectReference: {fileID: 5509655520744854504}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
