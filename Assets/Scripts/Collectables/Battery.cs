@@ -24,11 +24,11 @@ public class Battery : Collectable
 
     public override void MarkObject()
     {
-        Debug.Log("Battery marked");
+        UIManager.Instance.ToggleAuxiliaryText(true, m_ItemData.ItemName);
     }
 
     public override void UnmarkObject()
     {
-        Debug.Log("Battery unmarked");
+        UIManager.Instance.ToggleAuxiliaryText(false);
     }
 }
