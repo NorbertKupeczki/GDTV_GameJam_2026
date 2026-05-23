@@ -78,11 +78,31 @@ public class PlayerInteractions : MonoBehaviour
         {
             m_TargetInteractable = newInteractable;
             m_TargetInteractable.MarkObject();
-            // TODO: If interaction type is Insert, check whether the object held can be inserted first
-            if (m_TargetInteractable.InteractionType == GameEnums.InteractionType.Drain)
+            switch (m_TargetInteractable.InteractionType)
             {
-                var drainable = m_TargetInteractable as Drainable;
-                if (drainable && !drainable.IsDrainable) { return; }
+                case GameEnums.InteractionType.Drain:
+                {
+                    var drainable = m_TargetInteractable as Drainable;
+                    if (drainable && !drainable.IsDrainable) { return; }
+
+                    break;
+                }
+                case GameEnums.InteractionType.Charge:
+                {
+                    var chargeable = m_TargetInteractable as Chargeable;
+                    if (chargeable && chargeable.IsFullyCharged) { return; }
+
+                    break;
+                }
+                case GameEnums.InteractionType.Insert:
+                    // TODO: If interaction type is Insert, check whether the object held can be inserted first
+                    break;
+                case GameEnums.InteractionType.None:
+                case GameEnums.InteractionType.Pickup:
+                case GameEnums.InteractionType.Use:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
             m_SignalInteraction?.Invoke(true, newInteractable.InteractionType);
         }
@@ -108,8 +128,19 @@ public class PlayerInteractions : MonoBehaviour
                 break;
             }
             case Chargeable chargeable:
-                chargeable.ChargeObject();
+            {
+                if (chargeable.IsFullyCharged) { break; }
+                var chargeNeeded = chargeable.ChargeNeededToMax;
+                if (!PlayerManager.Instance.GetBattery.HasBatteryCharge(chargeNeeded)) { break; }
+                PlayerManager.Instance.DrainPlayerBattery(chargeNeeded);
+                chargeable.ChargeObject(chargeNeeded);
+                if (chargeable.IsFullyCharged)
+                {
+                    m_SignalInteraction?.Invoke(false, GameEnums.InteractionType.None);
+                    UIManager.Instance.ToggleAuxiliaryText(true, Chargeable.FULLY_CHARGED);
+                }
                 break;
+            }
             case Station station when m_HeldItem:
                 var isSuccessful = station.DepositItem(m_HeldItem); // Do something with the boolean
                 break;

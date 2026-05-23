@@ -16,6 +16,8 @@ public class PlayerBattery : MonoBehaviour
     
     private Coroutine m_AutoDrainBatteryRoutine;
 
+    public bool HasBatteryCharge(uint charge) => m_BatteryLevel > charge * 0.01f;
+
     private void Start()
     {
         m_BatteryLevel = MAX_BATTERY_CHARGE;

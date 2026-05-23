@@ -1,11 +1,23 @@
+using System;
 using UnityEngine;
 
 public abstract class Chargeable : MonoBehaviour, IInteractable
 {
-    [SerializeField] protected ChargeableItemSO m_ChargeableData = null;
-    public ChargeableItemSO ChargeableData => m_ChargeableData;
-
+    public event Action<float> OnChargeLevelChanged;
+    public event Action OnObjectFullyCharged;
+    
+    [Header("Chargeable")]
+    [SerializeField, Range(25, 100)] protected uint m_MaxCharge;
+    protected uint m_CurrentCharge;
+    protected bool m_IsFullyCharged;
+    
     protected Collider m_Collider;
+    
+    public static string FULLY_CHARGED = "FULLY CHARGED";
+
+    public uint ChargeNeededToMax => m_MaxCharge - m_CurrentCharge;
+    public float GetChargeLevelNormalised => (float)m_CurrentCharge / m_MaxCharge;
+    public bool IsFullyCharged => m_IsFullyCharged;
     
     protected virtual void Awake()
     {
@@ -15,9 +27,16 @@ public abstract class Chargeable : MonoBehaviour, IInteractable
         }
     }
 
-    public virtual void ChargeObject()
+    public virtual void ChargeObject(uint value)
     {
-        Debug.Log("Charge Object... Not implemented logic yet...");
+        if (m_IsFullyCharged) { return; }
+
+        m_CurrentCharge = (uint)Mathf.Clamp(m_CurrentCharge + value, 0, m_MaxCharge);
+        OnChargeLevelChanged?.Invoke(GetChargeLevelNormalised);
+
+        if (m_CurrentCharge != m_MaxCharge) { return; }
+        m_IsFullyCharged = true;
+        OnObjectFullyCharged?.Invoke();
     }
 
     public abstract void MarkObject();

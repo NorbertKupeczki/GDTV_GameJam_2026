@@ -30,6 +30,7 @@ public class UIManager : MonoSingleton<UIManager>
         base.Awake();
         
         ToggleInteractionText(false, GameEnums.InteractionType.None);
+        m_AuxiliaryText.gameObject.SetActive(false);
     }
 
     private void Start()
