@@ -183,6 +183,13 @@ MonoBehaviour:
       Data3: -723741020
       Data4: 923519130
     Path: event:/UI/UiPanelOpen
+  <UiPop>k__BackingField:
+    Guid:
+      Data1: 1122532266
+      Data2: 1160767178
+      Data3: 1708528782
+      Data4: 1138824508
+    Path: event:/UI/UiPop
   <PlayerJump>k__BackingField:
     Guid:
       Data1: 1425454180
@@ -204,6 +211,13 @@ MonoBehaviour:
       Data3: 778618012
       Data4: -204889154
     Path: event:/Player/PlayerFootsteps
+  <PlayerShutdown>k__BackingField:
+    Guid:
+      Data1: 1517762280
+      Data2: 1081490226
+      Data3: -1779374439
+      Data4: -1580892133
+    Path: event:/Player/PlayerPoweringDown
   <BatteryCharge>k__BackingField:
     Guid:
       Data1: -606989655
@@ -232,6 +246,20 @@ MonoBehaviour:
       Data3: -283396422
       Data4: -2013301435
     Path: event:/Battery/BatteryCritical
+  <DoorOpen>k__BackingField:
+    Guid:
+      Data1: -1466028763
+      Data2: 1299498253
+      Data3: 1583979158
+      Data4: 1351324667
+    Path: event:/Objects/DoorOpen
+  <DoorClose>k__BackingField:
+    Guid:
+      Data1: 1759836855
+      Data2: 1077488131
+      Data3: 2021010360
+      Data4: 1696792557
+    Path: event:/Objects/DoorClose
 --- !u!4 &65259214
 Transform:
   m_ObjectHideFlags: 0

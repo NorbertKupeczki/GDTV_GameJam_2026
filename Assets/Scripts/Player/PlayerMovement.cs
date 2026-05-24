@@ -55,16 +55,23 @@ public class PlayerMovement : MonoBehaviour
         foreach (ContactPoint contact in collision.contacts)
         {
             if (!(Vector3.Angle(contact.normal, Vector3.up) < 45f)) continue;
-            
+
+            if (!m_IsGrounded)
+            {
+                Debug.Log("Land");
+                AudioManager.Instance.PlayOneShotAudio(
+                    AudioLibrary.Instance.PlayerLands,
+                    m_Camera.transform.position);
+            }
             m_IsGrounded = true;
             return;
         }
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        m_IsGrounded = false;
-    }
+    // private void OnCollisionExit(Collision collision)
+    // {
+    //     m_IsGrounded = false;
+    // }
 
     private void HandleMovement()
     {
@@ -82,18 +89,23 @@ public class PlayerMovement : MonoBehaviour
     private void HandleJump()
     {
         if (!m_IsGrounded) return;
+        Debug.Log("Jump");
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.PlayerJump,
+            m_Camera.transform.position);
         
         m_Rigidbody.AddForce(Vector3.up * m_JumpForce, ForceMode.Impulse);
+        m_Rigidbody.position += Vector3.up * 0.1f;
         m_IsGrounded = false;
     }
 
     private void HandleLook()
     {
-        Vector2 mouseInput = InputManager.Instance.GetLookNormalized();
+        var mouseInput = InputManager.Instance.GetLookNormalized();
         
         // Rotate player rigidbody
-        float rotationAmount = mouseInput.x * m_RotateSpeed * Time.deltaTime;
-        Quaternion deltaRotation = Quaternion.Euler(0f, rotationAmount, 0f);
+        var rotationAmount = mouseInput.x * m_RotateSpeed * Time.deltaTime;
+        var deltaRotation = Quaternion.Euler(0f, rotationAmount, 0f);
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * deltaRotation);
         
         // Tilt the camera

@@ -108,11 +108,13 @@ public class UIManager : MonoSingleton<UIManager>
 
         // Show UI element
         m_PauseMenu.gameObject.SetActive(pause);
+
+        if (!pause) { return; }
         
-        if (pause)
-        {
-            m_ResumeButton.Select();
-        }
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.UiPanelOpen,
+            Camera.main.transform.position);
+        m_ResumeButton.Select();
     }
     
     private void HandleResumeButton()
