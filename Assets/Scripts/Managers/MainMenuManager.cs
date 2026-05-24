@@ -40,16 +40,19 @@ public class MainMenuManager : MonoBehaviour
 
     private void HandleStartButtonPressed()
     {
+        PlaySubmitAudio();
         Loader.LoadScene(Loader.Scenes.GameScene);
     }
 
     private void HandleSettingsButtonPressed()
     {
+        PlaySubmitAudio();
         ToggleSettingsPanel(true);
     }
 
     private void HandleQuitButtonPressed()
     {
+        PlaySubmitAudio();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -71,5 +74,12 @@ public class MainMenuManager : MonoBehaviour
     private void HandleCloseSettingsPanel()
     {
         ToggleSettingsPanel(false);
+    }
+
+    private void PlaySubmitAudio()
+    {
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.UiSubmit,
+            Camera.main.transform.position);
     }
 }

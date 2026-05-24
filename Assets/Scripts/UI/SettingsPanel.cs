@@ -24,6 +24,9 @@ public class SettingsPanel : MonoBehaviour
     {
         LoadValues();
         m_BackButton.Select();
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.UiPanelOpen,
+            Camera.main.transform.position);
     }
 
     private void OnDestroy()
@@ -46,6 +49,9 @@ public class SettingsPanel : MonoBehaviour
     private void HandleBackButtonPressed()
     {
         SaveValues();
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.UiSubmit,
+            Camera.main.transform.position);
         OnSettingsPanelClose?.Invoke();
     }
 

@@ -1,30 +1,31 @@
 using UnityEngine;
 using FMODUnity;
 
-public class AudioLibrary : MonoBehaviour
+public class AudioLibrary : MonoSingleton<AudioLibrary>
 {
-    [Header("Music")]
-    [field: SerializeField] public EventReference backgroundMusic { get; private set; }
-    
-    [Header("Sound Effects")]
-    [field: SerializeField] public EventReference playerJump { get; private set; }
-    [field: SerializeField] public EventReference playerLands { get; private set; }
-    [field: SerializeField] public EventReference playerFootsteps { get; private set; }
-    [field: SerializeField] public EventReference enemyMovement { get; private set; }
-    
-    
-    public static AudioLibrary Instance {get; private set;}
-
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Debug.LogWarning("AudioLibrary has already been initialized!");
-            Destroy(gameObject);
-        }
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
     }
+    
+    [Header("Music")]
+    [field: SerializeField] public EventReference BackgroundMusic { get; private set; }
+    
+    [Header("UI")]
+    [field: SerializeField] public EventReference UiElementChange { get; private set; }
+    [field: SerializeField] public EventReference UiSliderValueChange { get; private set; }
+    [field: SerializeField] public EventReference UiSubmit { get; private set; }
+    [field: SerializeField] public EventReference UiPanelOpen { get; private set; }
+    
+    [Header("Player Effects")]
+    [field: SerializeField] public EventReference PlayerJump { get; private set; }
+    [field: SerializeField] public EventReference PlayerLands { get; private set; }
+    [field: SerializeField] public EventReference PlayerFootsteps { get; private set; }
+    
+    [Header("Battery")]
+    [field: SerializeField] public EventReference BatteryCharge { get; private set; }
+    [field: SerializeField] public EventReference BatteryDrain { get; private set; }
+    [field: SerializeField] public EventReference BatteryWarning { get; private set; }
+    [field: SerializeField] public EventReference BatteryCritical { get; private set; }
 }

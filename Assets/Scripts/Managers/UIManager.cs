@@ -117,17 +117,20 @@ public class UIManager : MonoSingleton<UIManager>
     
     private void HandleResumeButton()
     {
+        PlaySubmitAudio();
         TogglePauseGame(false);
     }
 
     private void HandleSettingsButton()
     {
+        PlaySubmitAudio();
         m_PauseMenu.gameObject.SetActive(false);
         ToggleSettingsPanel(true);
     }
 
     private void HandleMainMenuButton()
     {
+        PlaySubmitAudio();
         Loader.LoadScene(Loader.Scenes.MainMenu);
     }
 
@@ -140,7 +143,13 @@ public class UIManager : MonoSingleton<UIManager>
     {
         m_SettingsPanel.gameObject.SetActive(toggle);
 
-        if (toggle) { return; }
+        if (toggle)
+        {
+            AudioManager.Instance.PlayOneShotAudio(
+                AudioLibrary.Instance.UiPanelOpen,
+                Camera.main.transform.position);
+            return;
+        }
         
         m_PauseMenu.gameObject.SetActive(true);
         m_SettingsButton.Select();
@@ -162,5 +171,12 @@ public class UIManager : MonoSingleton<UIManager>
     private void HandleBatteryOutOfCharge()
     {
         Debug.Log("Battery is out of charge...");
+    }
+
+    private void PlaySubmitAudio()
+    {
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.UiSubmit,
+            Camera.main.transform.position);
     }
 }

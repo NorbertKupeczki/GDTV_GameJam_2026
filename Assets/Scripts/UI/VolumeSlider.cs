@@ -28,6 +28,13 @@ public class VolumeSlider : MonoBehaviour
     {
         m_SliderValueText.text = Mathf.RoundToInt(value).ToString();
         OnSliderValueChanged?.Invoke(value);
+
+        if (isActiveAndEnabled)
+        {
+            AudioManager.Instance.PlayOneShotAudio(
+                AudioLibrary.Instance.UiSliderValueChange,
+                Camera.main.transform.position);
+        }
     }
     
     public float GetSliderValue() => m_Slider.value;
