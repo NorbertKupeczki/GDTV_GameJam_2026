@@ -24,6 +24,9 @@ public class SettingsPanel : MonoBehaviour
     {
         LoadValues();
         m_BackButton.Select();
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.UiPanelOpen,
+            Camera.main.transform.position);
     }
 
     private void OnDestroy()
@@ -35,17 +38,22 @@ public class SettingsPanel : MonoBehaviour
 
     private void HandleMusicSliderValueChanged(float value)
     {
-        // Logic to handle music volume slider changes
+        //Debug.Log($"Music slider value: {value}");
+        AudioManager.Instance.SetMusicVolume(value * 0.1f);
     }
 
     private void HandleEffectsVolumeSliderValueChanged(float value)
     {
-        // Logic to handle effects volume slider changes
+        //Debug.Log($"Effect slider value: {value}");
+        AudioManager.Instance.SetEffectsVolume(value * 0.1f);
     }
     
     private void HandleBackButtonPressed()
     {
         SaveValues();
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.UiSubmit,
+            Camera.main.transform.position);
         OnSettingsPanelClose?.Invoke();
     }
 

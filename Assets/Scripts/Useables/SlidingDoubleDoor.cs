@@ -20,11 +20,16 @@ public class SlidingDoubleDoor : MonoBehaviour
     private Vector3 m_RightDoorClosedPosition;
     private Vector3 m_RightDoorOpenPosition;
     
+    // Sound origin
+    private Vector3 m_SoundOrigin;
+    
     private void Awake()
     {
         m_DoorIsOpen = false;
         m_DoorIsMoving = false;
         Vector3 openVector = new(1.75f, 0.0f, 0.0f);
+
+        m_SoundOrigin = transform.position + Vector3.up * 1.5f;
             
         m_LeftDoorClosedPosition = m_LeftDoor.localPosition;
         m_LeftDoorOpenPosition = m_LeftDoor.localPosition - openVector;
@@ -62,6 +67,10 @@ public class SlidingDoubleDoor : MonoBehaviour
         if (m_DoorIsMoving || m_DoorIsOpen) { return; }
         m_DoorIsMoving = true;
         
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.DoorOpen,
+            m_SoundOrigin);
+        
         m_LeftDoor.DOLocalMoveX(m_LeftDoorOpenPosition.x,DOOR_OPEN_DURATION)
             .SetEase(Ease.InOutSine)
             .OnComplete(() => m_DoorIsOpen = true);
@@ -74,6 +83,10 @@ public class SlidingDoubleDoor : MonoBehaviour
     {
         if (m_DoorIsMoving || !m_DoorIsOpen) { return; }
         m_DoorIsMoving = true;
+        
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.DoorClose,
+            m_SoundOrigin);
         
         m_LeftDoor.DOLocalMoveX(m_LeftDoorClosedPosition.x,DOOR_OPEN_DURATION)
             .SetEase(Ease.InOutSine)

@@ -95,8 +95,11 @@ public class PlayerInteractions : MonoBehaviour
                     break;
                 }
                 case GameEnums.InteractionType.Insert:
-                    // TODO: If interaction type is Insert, check whether the object held can be inserted first
+                {
+                    var station = m_TargetInteractable as Station;
+                    if (station && (!m_HeldItem || !station.CanItemBeDeposited(m_HeldItem))) { return; }
                     break;
+                }
                 case GameEnums.InteractionType.None:
                 case GameEnums.InteractionType.Pickup:
                 case GameEnums.InteractionType.Use:
@@ -142,7 +145,10 @@ public class PlayerInteractions : MonoBehaviour
                 break;
             }
             case Station station when m_HeldItem:
-                var isSuccessful = station.DepositItem(m_HeldItem); // Do something with the boolean
+                if (!station.DepositItem(m_HeldItem)) { return; }
+                m_HeldItem = null;
+                m_SignalInteraction?.Invoke(false, GameEnums.InteractionType.None);
+                UIManager.Instance.ToggleAuxiliaryText(false);
                 break;
         }
     }

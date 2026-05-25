@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 public abstract class Station : MonoBehaviour, IInteractable
 {
+    public event Action OnItemDeposited;
+    
     [SerializeField] protected ItemDataSO m_DepositableItems;
     [SerializeField] protected Transform m_DepositableItemParent;
     
@@ -19,18 +22,20 @@ public abstract class Station : MonoBehaviour, IInteractable
         
     }
 
-    public abstract bool DepositItem(Collectable item);
-
-    public abstract Collectable RemoveItem();
-    
-    public void MarkObject()
+    protected void HandleItemDeposited()
     {
-        Debug.Log($"Mark Object {name}");
+        OnItemDeposited?.Invoke();
     }
 
-    public void UnmarkObject()
+    public abstract bool DepositItem(Collectable item);
+
+    public abstract void MarkObject();
+
+    public abstract void UnmarkObject();
+
+    public bool CanItemBeDeposited(Collectable item)
     {
-        Debug.Log($"Unmark Object {name}");
+        return m_DepositableItems == item.ItemData;
     }
 
     public GameEnums.InteractionType InteractionType => GameEnums.InteractionType.Insert;
