@@ -1,10 +1,17 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBattery : MonoBehaviour
 {
-    // The delegate passes the normalized battery level
+    private enum BatteryStatus
+    {
+        OK = 0,
+        Low,
+        Critical
+    }
+    
     public event Action<float> OnBatteryChargeChanged;
     public event Action OnBatteryIsFlat;
 
@@ -13,6 +20,7 @@ public class PlayerBattery : MonoBehaviour
     private const float DRAIN_RATE = -0.001f;
     
     private float m_BatteryLevel;
+    private BatteryStatus m_BatteryStatus = BatteryStatus.OK;
     
     private Coroutine m_AutoDrainBatteryRoutine;
 
@@ -30,8 +38,42 @@ public class PlayerBattery : MonoBehaviour
         m_BatteryLevel = Mathf.Clamp(m_BatteryLevel + amount, 0.0f, MAX_BATTERY_CHARGE);
         OnBatteryChargeChanged?.Invoke(m_BatteryLevel);
 
-        if (m_BatteryLevel > 0.0f) { return; }
-        TriggerBatteryIsOutOfCharge();
+        switch (m_BatteryLevel)
+        {
+            case <= 0.0f:
+            {
+                TriggerBatteryIsOutOfCharge();
+                break;
+            }
+            case < 0.1f when m_BatteryStatus != BatteryStatus.Critical:
+            {
+                Debug.Log("Critical Battery");
+                m_BatteryStatus = BatteryStatus.Critical;
+                AudioManager.Instance.PlayOneShotAudio(
+                    AudioLibrary.Instance.BatteryCritical,
+                    Camera.main.transform.position);
+                break;
+            }
+            case < 0.3f when m_BatteryStatus != BatteryStatus.Low:
+            {
+                if (m_BatteryStatus == BatteryStatus.Critical && amount < 0) { break; }
+                Debug.Log("Low Battery");
+                if (m_BatteryStatus == BatteryStatus.OK)
+                {
+                    AudioManager.Instance.PlayOneShotAudio(
+                        AudioLibrary.Instance.BatteryWarning,
+                        Camera.main.transform.position);
+                }
+                m_BatteryStatus = BatteryStatus.Low;
+                break;
+            }
+            case >= 0.3f when m_BatteryStatus != BatteryStatus.OK:
+            {
+                Debug.Log("OK Battery");
+                m_BatteryStatus = BatteryStatus.OK;
+                break;
+            }
+        }
     }
 
     public void StopAutoDrainBattery()

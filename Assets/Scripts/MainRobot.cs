@@ -47,5 +47,6 @@ public class MainRobot : MonoBehaviour
         yield return null;
         
         m_FinalDoor?.OpenDoor();
+        PlayerManager.Instance.GetBattery.StopAutoDrainBattery();
     }
 }
