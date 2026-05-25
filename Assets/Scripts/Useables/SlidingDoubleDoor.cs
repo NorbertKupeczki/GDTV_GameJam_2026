@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class SlidingDoubleDoor : MonoBehaviour
 {
-    [SerializeField] private Usable m_TriggerObject;
+    [SerializeField] private Usable m_TriggerUsable;
+    [SerializeField] private Station m_TriggerStation;
     [Header("Doors")]
     [SerializeField] private Transform m_LeftDoor;
     [SerializeField] private Transform m_RightDoor;
@@ -40,14 +41,26 @@ public class SlidingDoubleDoor : MonoBehaviour
 
     private void Start()
     {
-        if (!m_TriggerObject) { return; }
-        m_TriggerObject.OnUse += HandleDoorToggle;
+        if (m_TriggerUsable)
+        {
+            m_TriggerUsable.OnUse += HandleDoorToggle;
+        }
+        else if (m_TriggerStation)
+        {
+            m_TriggerStation.OnItemDeposited += OpenDoor;
+        }
     }
 
     private void OnDestroy()
     {
-        if (!m_TriggerObject) { return; }
-        m_TriggerObject.OnUse -= HandleDoorToggle;
+        if (m_TriggerUsable)
+        {
+            m_TriggerUsable.OnUse -= HandleDoorToggle;
+        }
+        else if (m_TriggerStation)
+        {
+            m_TriggerStation.OnItemDeposited -= OpenDoor;
+        }
     }
 
     private void HandleDoorToggle()

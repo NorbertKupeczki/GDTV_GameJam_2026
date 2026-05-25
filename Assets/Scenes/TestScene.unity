@@ -516,6 +516,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &716863426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5491707608328475912, guid: bd9eec625d6323440a57a965bfe954b1, type: 3}
+  m_PrefabInstance: {fileID: 2385604489138669200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b9685ede36bfef41b1eae31789f1c41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BatteryDeposit
 --- !u!1 &730138641
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +703,75 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 343a1dbb78749c449afc3aa77bc4c572, type: 3}
+--- !u!1001 &1300650598
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6064671213770785630, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_Name
+      value: DoubleDoor_Station
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803213279849686094, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_TriggerObject
+      value: 
+      objectReference: {fileID: 518610028}
+    - target: {fileID: 6803213279849686094, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_TriggerUsable
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803213279849686094, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_TriggerStation
+      value: 
+      objectReference: {fileID: 716863426}
+    - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
 --- !u!1 &1514652813
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,7 +1045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4166620182911110103, guid: bd9eec625d6323440a57a965bfe954b1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.31
+      value: 13.11
       objectReference: {fileID: 0}
     - target: {fileID: 4166620182911110103, guid: bd9eec625d6323440a57a965bfe954b1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -973,7 +1053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4166620182911110103, guid: bd9eec625d6323440a57a965bfe954b1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.73
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4166620182911110103, guid: bd9eec625d6323440a57a965bfe954b1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1022,7 +1102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8596459400916872297, guid: 786625e41db2ea74c9fb5393851bb31c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: 11.4
       objectReference: {fileID: 0}
     - target: {fileID: 8596459400916872297, guid: 786625e41db2ea74c9fb5393851bb31c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1030,7 +1110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8596459400916872297, guid: 786625e41db2ea74c9fb5393851bb31c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -4.02
       objectReference: {fileID: 0}
     - target: {fileID: 8596459400916872297, guid: 786625e41db2ea74c9fb5393851bb31c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1163,10 +1243,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6064671213770785630, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
       propertyPath: m_Name
-      value: DoubleDoor
+      value: DoubleDoor_Switch
       objectReference: {fileID: 0}
     - target: {fileID: 6803213279849686094, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
       propertyPath: m_TriggerObject
+      value: 
+      objectReference: {fileID: 518610028}
+    - target: {fileID: 6803213279849686094, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
+      propertyPath: m_TriggerUsable
       value: 
       objectReference: {fileID: 518610028}
     - target: {fileID: 8571132609668913088, guid: 540498591dace97439d8c221fa7fbeca, type: 3}
@@ -1447,4 +1531,5 @@ SceneRoots:
   - {fileID: 6899292308503867967}
   - {fileID: 668323836}
   - {fileID: 5719334546472881449}
+  - {fileID: 1300650598}
   - {fileID: 834389519}
