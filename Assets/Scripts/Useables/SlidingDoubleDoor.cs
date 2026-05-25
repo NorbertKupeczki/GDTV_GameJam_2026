@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SlidingDoubleDoor : MonoBehaviour
 {
+    [Header ("---- USE ONLY ONE TRIGGER ----")]
     [SerializeField] private Usable m_TriggerUsable;
     [SerializeField] private Station m_TriggerStation;
     [Header("Doors")]
