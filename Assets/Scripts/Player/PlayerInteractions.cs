@@ -36,10 +36,12 @@ public class PlayerInteractions : MonoBehaviour
 
     private void CheckForInteractable()
     {
+#if UNITY_EDITOR
         Debug.DrawLine(
             m_Camera.transform.position,
             m_Camera.transform.position + m_Camera.transform.forward * m_MaxInteractionDistance,
             Color.red);
+#endif
 
         Physics.SphereCast(
             m_Camera.transform.position,
@@ -78,6 +80,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             m_TargetInteractable = newInteractable;
             m_TargetInteractable.MarkObject();
+            
             switch (m_TargetInteractable.InteractionType)
             {
                 case GameEnums.InteractionType.Drain:
@@ -96,8 +99,13 @@ public class PlayerInteractions : MonoBehaviour
                 }
                 case GameEnums.InteractionType.Insert:
                 {
+                    if (!m_HeldItem) { return; }
                     var station = m_TargetInteractable as Station;
-                    if (station && (!m_HeldItem || !station.CanItemBeDeposited(m_HeldItem))) { return; }
+                    if (station && !station.CanItemBeDeposited(m_HeldItem))
+                    {
+                        m_SignalInteraction?.Invoke(false, GameEnums.InteractionType.None);
+                        return;
+                    }
                     break;
                 }
                 case GameEnums.InteractionType.None:
@@ -145,11 +153,15 @@ public class PlayerInteractions : MonoBehaviour
                 break;
             }
             case Station station when m_HeldItem:
-                if (!station.DepositItem(m_HeldItem)) { return; }
+            {
+                if (!station.CanItemBeDeposited(m_HeldItem)) { return; }
+                station.DepositItem(m_HeldItem);
                 m_HeldItem = null;
                 m_SignalInteraction?.Invoke(false, GameEnums.InteractionType.None);
                 UIManager.Instance.ToggleAuxiliaryText(false);
                 break;
+            }
+                
         }
     }
 
