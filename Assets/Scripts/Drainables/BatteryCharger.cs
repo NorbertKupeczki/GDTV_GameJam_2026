@@ -5,6 +5,9 @@ public class BatteryCharger : Drainable
     [Header("Battery Charger")]
     [SerializeField] private uint m_AmountOfCharges;
 
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem m_Particles;
+
     private const string DRAINED = "CHARGER DEPLETED"; 
     
     public override uint DrainPower()
@@ -14,6 +17,7 @@ public class BatteryCharger : Drainable
         m_AmountOfCharges--;
         if (m_AmountOfCharges == 0)
         {
+            m_Particles.Stop();
             m_IsDrainable = false;
         }
         
