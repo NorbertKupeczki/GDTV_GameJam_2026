@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
@@ -18,6 +19,9 @@ public class UIManager : MonoSingleton<UIManager>
     
     [Header("Settings Panel")]
     [SerializeField] private SettingsPanel m_SettingsPanel;
+    
+    [Header("Game Over Panel")]
+    [SerializeField] private GameOverPanel m_GameOverPanel;
 
     private const string INTERACTION_PICKUP = "Pick up <color=#00ffffff><b>(F)";
     private const string INTERACTION_DRAIN = "Drain <color=#00ffffff><b>(E)";
@@ -172,7 +176,8 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void HandleBatteryOutOfCharge()
     {
-        Debug.Log("Battery is out of charge...");
+        InputManager.Instance.SwitchToInputMap(InputManager.InputMaps.UI);
+        m_GameOverPanel.StartGameOverSequence();
     }
 
     private void PlaySubmitAudio()
@@ -181,4 +186,14 @@ public class UIManager : MonoSingleton<UIManager>
             AudioLibrary.Instance.UiSubmit,
             Camera.main.transform.position);
     }
+
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if (Keyboard.current.kKey.wasPressedThisFrame)
+        {
+            HandleBatteryOutOfCharge();
+        }
+    }
+#endif
 }

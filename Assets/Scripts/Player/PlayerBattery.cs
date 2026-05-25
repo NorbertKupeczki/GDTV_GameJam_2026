@@ -47,7 +47,7 @@ public class PlayerBattery : MonoBehaviour
             }
             case < 0.1f when m_BatteryStatus != BatteryStatus.Critical:
             {
-                Debug.Log("Critical Battery");
+                //Debug.Log("Critical Battery");
                 m_BatteryStatus = BatteryStatus.Critical;
                 AudioManager.Instance.PlayOneShotAudio(
                     AudioLibrary.Instance.BatteryCritical,
@@ -57,7 +57,7 @@ public class PlayerBattery : MonoBehaviour
             case < 0.3f when m_BatteryStatus != BatteryStatus.Low:
             {
                 if (m_BatteryStatus == BatteryStatus.Critical && amount < 0) { break; }
-                Debug.Log("Low Battery");
+                //Debug.Log("Low Battery");
                 if (m_BatteryStatus == BatteryStatus.OK)
                 {
                     AudioManager.Instance.PlayOneShotAudio(
@@ -69,7 +69,7 @@ public class PlayerBattery : MonoBehaviour
             }
             case >= 0.3f when m_BatteryStatus != BatteryStatus.OK:
             {
-                Debug.Log("OK Battery");
+                //Debug.Log("OK Battery");
                 m_BatteryStatus = BatteryStatus.OK;
                 break;
             }
@@ -104,6 +104,9 @@ public class PlayerBattery : MonoBehaviour
     private void TriggerBatteryIsOutOfCharge()
     {
         StopAutoDrainBattery();
+        AudioManager.Instance.PlayOneShotAudio(
+            AudioLibrary.Instance.PlayerShutdown,
+            Camera.main.transform.position);
         OnBatteryIsFlat?.Invoke();
     }
 }
