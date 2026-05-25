@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class BatteryDeposit : Station
 {
+    [SerializeField] private Animator m_Animator;
+    
+    private readonly int m_OpenAnimationHash = Animator.StringToHash("IsOpen");
+    
     protected override void Start()
     {
-        
+        m_Animator.SetBool(m_OpenAnimationHash, true);
     }
 
     public override bool DepositItem(Collectable item)
@@ -17,6 +21,7 @@ public class BatteryDeposit : Station
         m_DepositedItem.transform.position = m_DepositableItemParent.position;
         m_DepositedItem.transform.rotation = m_DepositableItemParent.rotation;
         
+        m_Animator.SetBool(m_OpenAnimationHash, false);
         HandleItemDeposited();
         return true;
     }

@@ -23,7 +23,9 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         InputManager.Instance.SwitchToInputMap(InputManager.InputMaps.UI);
+#if !UNITY_EDITOR
         InputManager.Instance.ToggleLockCursor(true);
+#endif
         
         m_StartGameButton.Select();
         ToggleSettingsPanel(false, false);
