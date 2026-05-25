@@ -6,6 +6,7 @@ public class Mover : MonoBehaviour
     [Header ("---- USE ONLY ONE TRIGGER ----")]
     [SerializeField] private Usable m_TriggerUsable;
     [SerializeField] private Station m_TriggerStation;
+    [SerializeField] private Chargeable m_TriggerChargeable;
 
     [Header("Moving object")]
     [SerializeField] private Transform m_ObjectToMove;
@@ -38,6 +39,10 @@ public class Mover : MonoBehaviour
         {
             m_TriggerStation.OnItemDeposited += MoveToTarget;
         }
+        else if (m_TriggerChargeable)
+        {
+            m_TriggerChargeable.OnObjectFullyCharged += MoveToTarget;
+        }
     }
 
     private void OnDestroy()
@@ -49,6 +54,10 @@ public class Mover : MonoBehaviour
         else if (m_TriggerStation)
         {
             m_TriggerStation.OnItemDeposited -= MoveToTarget;
+        }
+        else if (m_TriggerChargeable)
+        {
+            m_TriggerChargeable.OnObjectFullyCharged -= MoveToTarget;
         }
     }
     
