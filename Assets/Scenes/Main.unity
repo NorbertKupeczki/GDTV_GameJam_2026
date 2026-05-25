@@ -13439,6 +13439,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2321631748450920995, guid: ef88c2e8075fd9548ac3054c70512e15, type: 3}
   m_PrefabInstance: {fileID: 281118927}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &283577084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 283577087}
+  - component: {fileID: 283577086}
+  - component: {fileID: 283577085}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &283577085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283577084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 03eba70afd646004cbda9f1400ec4baf, type: 3}
+  m_PointAction: {fileID: 439186008484104182, guid: 03eba70afd646004cbda9f1400ec4baf, type: 3}
+  m_MoveAction: {fileID: 4202403572531222948, guid: 03eba70afd646004cbda9f1400ec4baf, type: 3}
+  m_SubmitAction: {fileID: 4001279779600442996, guid: 03eba70afd646004cbda9f1400ec4baf, type: 3}
+  m_CancelAction: {fileID: -5283786537820294762, guid: 03eba70afd646004cbda9f1400ec4baf, type: 3}
+  m_LeftClickAction: {fileID: -1505198147401164816, guid: 03eba70afd646004cbda9f1400ec4baf, type: 3}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 0}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
+--- !u!114 &283577086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283577084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &283577087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283577084}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &284389027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18720,6 +18799,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2577672018054958437, guid: 125896d3f1b9c0a47b6173a5b5f0dd51, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4017317376106685992, guid: 125896d3f1b9c0a47b6173a5b5f0dd51, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -18908,6 +18991,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8994921615339126886, guid: 125896d3f1b9c0a47b6173a5b5f0dd51, type: 3}
+      propertyPath: m_BatteryChargeText
+      value: 
+      objectReference: {fileID: 754711531}
+    - target: {fileID: 8994921615339126886, guid: 125896d3f1b9c0a47b6173a5b5f0dd51, type: 3}
+      propertyPath: m_BatteryStatusText
+      value: 
+      objectReference: {fileID: 754711530}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35593,6 +35684,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}
+--- !u!114 &754711530 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3789896710778094152, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}
+  m_PrefabInstance: {fileID: 754711529}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &754711531 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5137870960103372628, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}
+  m_PrefabInstance: {fileID: 754711529}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &756921374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100624,3 +100737,4 @@ SceneRoots:
   - {fileID: 1021576530}
   - {fileID: 747176424}
   - {fileID: 389512952}
+  - {fileID: 283577087}
