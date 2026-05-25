@@ -1532,6 +1532,7 @@ MonoBehaviour:
   - {fileID: 1138103288}
   m_Animator: {fileID: 1990254644}
   m_MainBodyRenderer: {fileID: 1446695783}
+  m_FinalDoor: {fileID: 0}
 --- !u!1 &1874601345
 GameObject:
   m_ObjectHideFlags: 0
@@ -1976,6 +1977,10 @@ PrefabInstance:
     - target: {fileID: 5993677050831674250, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807312582034889854, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3288475130896123284, guid: cb0c4e06c02a5384aa929c8cd00cd742, type: 3}

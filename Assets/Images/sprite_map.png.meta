@@ -188,7 +188,7 @@ TextureImporter:
         width: 300
         height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -210,7 +210,7 @@ TextureImporter:
         width: 104
         height: 104
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -232,7 +232,7 @@ TextureImporter:
         width: 104
         height: 104
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -254,7 +254,7 @@ TextureImporter:
         width: 500
         height: 500
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -263,6 +263,72 @@ TextureImporter:
       bones: []
       spriteID: 27717ccec9a19e5448c297d9f1ce3f62
       internalID: 918901773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BatterySouls_LogoWithText
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 550
+        width: 460
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03ef77b55aed26d47ac765bdca75184c
+      internalID: 1943715538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BatterySouls_Logo
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 25
+        width: 460
+        height: 504
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4f37dadfc7560c479464e7ba0d8c877
+      internalID: 529971776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_button_background
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 583
+        width: 168
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c91e08c69f23214892f3acbf1b54503
+      internalID: -423052792
       vertices: []
       indices: 
       edges: []
@@ -281,12 +347,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      BatterySouls_Logo: 529971776
+      BatterySouls_LogoWithText: 1943715538
       button_background: -2020439599
       button_decor_left: 1025282483
       button_decor_right: -1648940419
       panel_background: 918901773
       slider_bar: -74400854
       slider_knob: 1365836415
+      small_button_background: -423052792
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
