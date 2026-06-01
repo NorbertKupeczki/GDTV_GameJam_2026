@@ -2777,7 +2777,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Battery Souls
 
-    V 0.1.2'
+    V 0.2.0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 69ed1af991c28c540bf095df51d975ff, type: 2}
   m_sharedMaterial: {fileID: 7979672926499505931, guid: 69ed1af991c28c540bf095df51d975ff, type: 2}

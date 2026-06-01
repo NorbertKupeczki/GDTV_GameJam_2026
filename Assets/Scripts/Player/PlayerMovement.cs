@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         var mouseInput = InputManager.Instance.GetLookNormalized();
         
         // Rotate player rigidbody
-        var rotationAmount = mouseInput.x * m_RotateSpeed * Time.deltaTime;
+        var rotationAmount = mouseInput.x * m_RotateSpeed * Time.deltaTime * 1.5f;
         var deltaRotation = Quaternion.Euler(0f, rotationAmount, 0f);
         m_Rigidbody.MoveRotation(m_Rigidbody.rotation * deltaRotation);
         

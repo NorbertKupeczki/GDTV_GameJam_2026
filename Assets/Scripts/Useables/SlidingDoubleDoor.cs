@@ -6,6 +6,7 @@ public class SlidingDoubleDoor : MonoBehaviour
     [Header ("---- USE ONLY ONE TRIGGER ----")]
     [SerializeField] private Usable m_TriggerUsable;
     [SerializeField] private Station m_TriggerStation;
+    [SerializeField] private Chargeable m_TriggerChargeable;
     [Header("Doors")]
     [SerializeField] private Transform m_LeftDoor;
     [SerializeField] private Transform m_RightDoor;
@@ -50,6 +51,10 @@ public class SlidingDoubleDoor : MonoBehaviour
         {
             m_TriggerStation.OnItemDeposited += OpenDoor;
         }
+        else if (m_TriggerChargeable)
+        {
+            m_TriggerChargeable.OnObjectFullyCharged += OpenDoor;
+        }
     }
 
     private void OnDestroy()
@@ -61,6 +66,10 @@ public class SlidingDoubleDoor : MonoBehaviour
         else if (m_TriggerStation)
         {
             m_TriggerStation.OnItemDeposited -= OpenDoor;
+        }
+        else if (m_TriggerChargeable)
+        {
+            m_TriggerChargeable.OnObjectFullyCharged -= OpenDoor;
         }
     }
 
